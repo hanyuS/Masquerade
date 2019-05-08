@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#06275A</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="btnColor">#06275A</color>
-    <color name="btnActivate">#1D4A91</color>
+    <color name="btnColor">#308CB1</color>
+    <color name="btnColor2">#102C76</color>
+    <color name="btn_onClick">#A7D5F8</color>
+    <color name="colorLight">#0F8094</color>
+
 </resources>
