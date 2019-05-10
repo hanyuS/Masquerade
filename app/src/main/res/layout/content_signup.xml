@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color"
+    tools:context=".signup"
+    tools:showIn="@layout/activity_signup">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageButton
+            android:id="@+id/backTo_login"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:backgroundTint="@color/btnColor2"
+            app:srcCompat="@drawable/ic_arrow" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="700dp"
+            android:layout_weight="1"
+            android:transitionName="viewLogo"
+            app:srcCompat="@mipmap/ic_launcher_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="631dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/signUp_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:fontFamily="monospace"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:textAlignment="center"
+                        android:textColorHint="@color/colorWhite"
+                        android:textColorLink="@color/colorWhite"/>
+
+                    <EditText
+                        android:id="@+id/signUp_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:textAlignment="center"
+                        android:textColorHint="@color/colorWhite"
+                        android:textColorLink="@color/colorWhite"/>
+
+                    <EditText
+                        android:id="@+id/signUp_rePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:fontFamily="monospace"
+                        android:hint="Confirm Password"
+                        android:inputType="textPassword"
+                        android:textAlignment="center"
+                        android:textColorHint="@color/colorWhite"
+                        android:textColorLink="@color/colorWhite"/>
+
+                    <Button
+                        android:id="@+id/signUp_enter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/btnColor"
+                        android:fontFamily="monospace"
+                        android:text="Enter"
+                        android:textColor="@color/colorWhite" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
