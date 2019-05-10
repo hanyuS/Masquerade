@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "839601725323",
+    "firebase_url": "https://settingpage-af264.firebaseio.com",
+    "project_id": "settingpage-af264",
+    "storage_bucket": "settingpage-af264.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839601725323:android:82b6d4c212519b17",
+        "android_client_info": {
+          "package_name": "com.example.settingpage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839601725323-80sd79tlpklil6sp4g4emk3iq2ilh4oo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.settingpage",
+            "certificate_hash": "c273550b66821c0cc70b0bd914e9fa01c10fd3c5"
+          }
+        },
+        {
+          "client_id": "839601725323-4tfpqhapi9v73p1grpiu4okvp1tbht8k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8Qnd-xgW-wvHU794wUc-jPEcrRieuYw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839601725323-4tfpqhapi9v73p1grpiu4okvp1tbht8k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
