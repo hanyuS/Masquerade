@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorLight"
         android:transitionName="viewLogo"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo_small" />
 
     <Space
         android:layout_width="200dp"
