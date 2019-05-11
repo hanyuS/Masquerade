@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/text_message_body"
-        android:text="hi man, how are you?"
+        android:text="What's your name?"
         android:background="@drawable/rounded_rectangle_orange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
