@@ -4,24 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".login"
     tools:showIn="@layout/activity_login">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="100dp"
         android:orientation="vertical">
     </LinearLayout>
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="horizontal">
+
+    <Space
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="700dp"
-        android:layout_weight="1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorLight"
         android:transitionName="viewLogo"
-        app:srcCompat="@mipmap/ic_launcher_logo" />
+        app:srcCompat="@drawable/logo" />
+
+    <Space
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +59,7 @@
                 android:layout_weight="1" />
 
             <LinearLayout
-                android:layout_width="496dp"
+                android:layout_width="350dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -52,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:fontFamily="monospace"
-                    android:hint="Email"
+                    android:hint="E m a i l"
                     android:inputType="textEmailAddress"
                     android:shadowColor="@color/colorWhite"
                     android:textAlignment="center"
@@ -65,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:fontFamily="monospace"
-                    android:hint="Password"
+                    android:hint="P a s s w o r d"
                     android:inputType="textPassword"
                     android:textAlignment="center"
                     android:textColorHint="@color/colorWhite"
@@ -78,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/btnColor"
                     android:fontFamily="monospace"
-                    android:text="Log In"
+                    android:text="L o g  I n"
                     android:textColor="@color/colorWhite" />
 
                 <Button
@@ -88,7 +106,7 @@
                     android:backgroundTint="@color/btnColor"
                     android:fontFamily="monospace"
                     android:shadowColor="@color/colorWhite"
-                    android:text="Sign Up"
+                    android:text="S i g n  U p"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
 
