@@ -43,8 +43,6 @@ public class welcome extends AppCompatActivity {
            @Override
            public void run() {
                Intent loginIntent = new Intent(welcome.this,login.class);
-               ActivityOptionsCompat optionsCompat =
-                       ActivityOptionsCompat.makeSceneTransitionAnimation(welcome.this, logo, "viewLogo");
                startActivity(loginIntent);
                finish();
                //overridePendingTransition(0, 0);

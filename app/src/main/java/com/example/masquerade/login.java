@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class login extends AppCompatActivity {
-    TextView login_email, login_password;
-    Button login, signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,19 +23,11 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login_email = findViewById(R.id.login_email);
-        login_password = findViewById(R.id.login_password);
-        login = findViewById(R.id.login_loginButton);
-        signUp = findViewById(R.id.login_signUpButton);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(login.this,signup.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-        });
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     @Override

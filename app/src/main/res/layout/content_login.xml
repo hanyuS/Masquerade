@@ -1,122 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
     tools:context=".login"
     tools:showIn="@layout/activity_login">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical">
-    </LinearLayout>
-
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:orientation="horizontal">
-
-    <Space
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintWidth_percent="0.4"
+        app:srcCompat="@drawable/logo" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorLight"
-        android:transitionName="viewLogo"
-        app:srcCompat="@drawable/logo_small" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
-    <Space
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
-</LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="258dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="350dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/login_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:fontFamily="monospace"
-                    android:hint="E m a i l"
-                    android:inputType="textEmailAddress"
-                    android:shadowColor="@color/colorWhite"
-                    android:textAlignment="center"
-                    android:textColorHint="@color/colorWhite"
-                    android:textColorLink="@color/colorWhite" />
-
-                <EditText
-                    android:id="@+id/login_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:fontFamily="monospace"
-                    android:hint="P a s s w o r d"
-                    android:inputType="textPassword"
-                    android:textAlignment="center"
-                    android:textColorHint="@color/colorWhite"
-                    android:textColorLink="@color/colorWhite" />
-
-                <Button
-                    android:id="@+id/login_loginButton"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/btnColor"
-                    android:fontFamily="monospace"
-                    android:text="L o g  I n"
-                    android:textColor="@color/colorWhite" />
-
-                <Button
-                    android:id="@+id/login_signUpButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/btnColor"
-                    android:fontFamily="monospace"
-                    android:shadowColor="@color/colorWhite"
-                    android:text="S i g n  U p"
-                    android:textColor="@color/colorWhite" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="258dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
 
