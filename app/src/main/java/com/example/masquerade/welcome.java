@@ -1,6 +1,7 @@
 package com.example.masquerade;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ public class welcome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getApplication().setTheme(R.style.AppTheme);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (getSupportActionBar() != null){
@@ -44,6 +47,7 @@ public class welcome extends AppCompatActivity {
            public void run() {
                Intent loginIntent = new Intent(welcome.this,login.class);
                startActivity(loginIntent);
+               overridePendingTransition(0, 0);
                finish();
                //overridePendingTransition(0, 0);
            }
@@ -57,5 +61,4 @@ public class welcome extends AppCompatActivity {
         overridePendingTransition(0,0);
         super.onPause();
     }
-
 }
