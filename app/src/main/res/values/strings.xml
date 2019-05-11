@@ -4,4 +4,7 @@
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
     <string name="search_hint">Messages, names, etc.</string>
+    <string name="title_activity_welcome">welcome</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_signup">signup</string>
 </resources>
