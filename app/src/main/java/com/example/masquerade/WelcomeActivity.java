@@ -21,7 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import static android.app.PendingIntent.getActivity;
 
-public class welcome extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
     ConstraintLayout logo_layout;
     ConstraintLayout welcome;
     ConstraintLayout signin;
