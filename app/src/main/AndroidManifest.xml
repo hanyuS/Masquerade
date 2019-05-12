@@ -21,7 +21,7 @@
             android:name=".login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".welcome">
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
