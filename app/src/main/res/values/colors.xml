@@ -6,9 +6,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorBar">#4DD0E1</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="btnColor">#CB000000</color>
-    <color name="btnColor2">#102C76</color>
-    <color name="btn_onClick">#A7D5F8</color>
-    <color name="colorLight">#0F8094</color>
+    <color name="google">#4484f4</color>
 
 </resources>
