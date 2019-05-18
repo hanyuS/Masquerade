@@ -67,7 +67,7 @@
 
     <ScrollView
         android:id="@+id/nav_list"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/background"
@@ -98,6 +98,51 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/friend_list"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:fontFamily="@font/candara"
+                android:text="@string/friend_list"
+                android:textColor="@color/colorAccent" />
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/settings"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:fontFamily="@font/candara"
+                android:text="@string/account_setting"
+                android:textColor="@color/colorAccent" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/logout"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:fontFamily="@font/candara"
+                android:text="@string/logout"
+                android:textColor="@color/colorAccent" />
         </LinearLayout>
     </ScrollView>
 

@@ -13,6 +13,9 @@
     <string name="second_label">Male</string>
     <string name="third_label">Other</string>
     <string name="setting_gender">Gender\:</string>
+    <string name="friend_list">Friend List</string>
+    <string name="account_setting">Settings</string>
+    <string name="logout">Log Out</string>
 
 
 </resources>
