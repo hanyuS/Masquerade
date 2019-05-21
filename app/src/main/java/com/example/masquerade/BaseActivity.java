@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.google.firebase.quickstart.auth.R;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -17,7 +16,7 @@ public class BaseActivity extends AppCompatActivity {
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setMessage("Verifying Sign In");
             mProgressDialog.setIndeterminate(true);
         }
 
