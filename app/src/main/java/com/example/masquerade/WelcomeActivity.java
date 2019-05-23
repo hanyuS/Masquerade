@@ -3,38 +3,17 @@ package com.example.masquerade;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-
-
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-
-import static android.app.PendingIntent.getActivity;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -48,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
     ConstraintLayout logo_layout;
@@ -57,12 +38,14 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth  mAuth;
+    private DatabaseReference mDatabase;
     // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         Log.d("Created", "ON CREATE");
         super.onCreate(savedInstanceState);
         getApplication().setTheme(R.style.AppTheme);
@@ -160,9 +143,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
 
         if (requestCode == RC_SIGN_IN) {
-            Log.d(TAG,"correct code");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d(TAG, "got here");
             try {
 
                 // Google Sign In was successful, authenticate with Firebase
@@ -195,21 +176,23 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             FirebaseUserMetadata metadata = user.getMetadata();
-                            long data1 = metadata.getCreationTimestamp();
-                            long data2 = metadata.getLastSignInTimestamp();
-                            //boolean is_new = mAuth.UserCredential.additonal
+
+                            // Check if new user
                             boolean is_new = task.getResult().getAdditionalUserInfo().isNewUser();
                             if (is_new) {
-                                // The user is new, show setting & profile
+                                // The user is new, put in database.
+                                writeUser(user.getUid(), user.getEmail());
+                                Log.d(TAG,"DB");
+                                // show setting & profile
                                 startActivity(new Intent(WelcomeActivity.this, SettingActivity.class));
                                 finish();
 
                             } else {
+
                                 // This is an existing user, show home page.
                                 startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
                                 finish();
                             }
-                            // Direct to homepage
 
                         } else {
 
@@ -257,4 +240,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             revokeAccess();
         }
         */
+    private void writeUser(String user_Id, String email){
+        User user = new User(email);
+        mDatabase.child("Users").child(user_Id).setValue(user);
+    }
 }
