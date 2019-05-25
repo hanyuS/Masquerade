@@ -14,6 +14,11 @@
             android:label="@string/title_activity_setting">
         </activity>
 
+        <activity
+            android:name="selectTag"
+            android:label="@string/title_activity_tag" >
+        </activity>
+
         <activity android:name=".HomeActivity">
             <meta-data
                 android:name="android.app.searchable"

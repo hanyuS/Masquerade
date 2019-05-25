@@ -129,7 +129,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         // Recurring signIn, direct to home page
         if (currentUser != null) {
             Log.d("ALRDY SIGNED IN", "user is signed in");
-            startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, selectTag.class));
             finish();
         }
     }
@@ -190,7 +190,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                             } else {
 
                                 // This is an existing user, show home page.
-                                startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+                                startActivity(new Intent(WelcomeActivity.this, SettingActivity.class));
                                 finish();
                             }
 
