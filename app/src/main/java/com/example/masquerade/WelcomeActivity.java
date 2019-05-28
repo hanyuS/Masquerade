@@ -129,7 +129,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         // Recurring signIn, direct to home page
         if (currentUser != null) {
             Log.d("ALRDY SIGNED IN", "user is signed in");
-            startActivity(new Intent(WelcomeActivity.this, selectTag.class));
+            startActivity(new Intent(WelcomeActivity.this, SettingActivity.class));
             finish();
         }
     }
@@ -241,7 +241,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         }
         */
     private void writeUser(String user_Id, String email){
-        User user = new User(email);
+        User user = User.getInstance();
+        user.setEmail(email);
         mDatabase.child("Users").child(user_Id).setValue(user);
     }
 }
