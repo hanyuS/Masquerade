@@ -25,6 +25,7 @@ public class SettingActivity extends AppCompatActivity {
     RadioGroup group;
     TextInputLayout txt;
     RadioButton button;
+    //todo: check logic
     boolean is_set_button = false;
     String gender;
     String nick_name;
