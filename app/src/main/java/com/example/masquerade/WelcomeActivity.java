@@ -131,13 +131,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(currentUser);
-    }
+
     // [START on_start_check_user]
     @Override
     public void onStart() {
