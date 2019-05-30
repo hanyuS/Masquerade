@@ -1,5 +1,9 @@
 package com.example.masquerade;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,8 +41,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
 
+        FloatingActionButton fab = findViewById(R.id.match);
+        fab.setOnClickListener(new View.OnClickListener() {
+            int times = 0;
+            public void onClick(View v) {
+                FloatingActionButton fab = findViewById(R.id.match);
+                if (times == 0) {
+                    fab.setImageResource(R.drawable.rotate);
+                    times = 1;
+                }
+                else if (times == 1){
+                    fab.setImageResource(R.drawable.logo_small);
+                    times = 2;
+                    fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                }
+                else {
+                    fab.setImageResource(R.drawable.ic_add_black_24dp);
+                    fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+                    times = 0;
+                }
+            }
+        });
+
         drawer.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
     }
+
 }
