@@ -73,12 +73,14 @@ public class PairContact extends AppCompatActivity {
 
                         ArrayList<boolean []> userTags = new ArrayList<boolean[]>();
                         ArrayList<String> userId = new ArrayList<String>();
+                        ArrayList<Boolean> match = new ArrayList<Boolean>();
 
                         //iterate through each user, ignoring their UID
                         for (Map.Entry<String, Object> entry : users.entrySet()){
 
                             //Get user map
                             Map singleUser = (Map) entry.getValue();
+                            match.add((Boolean) singleUser.get("match"));
                             userId.add((String) singleUser.get("Uid"));
                             //Get phone field and append to list
                             Log.d("pair", singleUser.get("Uid").toString());
@@ -105,12 +107,12 @@ public class PairContact extends AppCompatActivity {
                             userTags.add(tagArr);
                         }
 
-                        findPairs(userTags, userId);
+                        findPairs(userTags, userId, match);
 
                         System.out.println(userTags.toString());
                     }
 
-                    private void findPairs(ArrayList<boolean[]> uTags, ArrayList<String> uId){
+                    private void findPairs(ArrayList<boolean[]> uTags, ArrayList<String> uId, ArrayList<Boolean>ismatching){
                         if(uTags.size()!= uId.size()){
                             System.err.println("Error occured");
                         }
@@ -120,7 +122,7 @@ public class PairContact extends AppCompatActivity {
                         int random = (int) (Math.random() * size);
                         String pairedUser = "";
 
-                        //find this uid's  location
+                        //find this uid's location
                         int location = 0;
                         for(int i=0; i<size; i++){
                             if(uId.get(i) == uid){
@@ -131,10 +133,15 @@ public class PairContact extends AppCompatActivity {
                         boolean[] thisusertags = uTags.get(location);
 
                         //iterate the array from the random number
+                        OUT1:
                         for(int i=random; i<size; i++){
                             if(i == location){
                                 continue;
                             }
+                            if(ismatching.get(i) == false){
+                                continue;
+                            }
+                            //TODO: When we have contacts list, check whether that laobi is our contact.
                             //get one user's tags
                             boolean[] thisTag = uTags.get(i);
                             //iterate through tags fields
@@ -143,38 +150,57 @@ public class PairContact extends AppCompatActivity {
                                 if(thisTag[j] == true){
                                     if(thisusertags[j] == true){
                                         pairedUser = uId.get(i);
+                                        break OUT1;
                                     }
                                 }
                             }
-                            PairUsers(uid, pairedUser);
                         }
 
+                        if(!pairedUser.equals("")){
+                            PairUsers(uid, pairedUser);
+                            return;
+                        }
+
+                        OUT2:
                         for(int i=0; i<random; i++){
                             if(i == location){
+                                continue;
+                            }
+                            if(ismatching.get(i) == false){
                                 continue;
                             }
                             //get one user's tags
                             boolean[] thisTag = uTags.get(i);
                             //iterate through tags fields
-                            for(int j=0; j<thisTag.length; j++){
+                            for(int j=0; j<thisTag.length; j++) {
                                 //find one tag
-                                if(thisTag[j] == true){
-                                    if(thisusertags[j] == true){
+                                if (thisTag[j] == true) {
+                                    if (thisusertags[j] == true) {
                                         pairedUser = uId.get(i);
+                                        break OUT2;
                                     }
                                 }
                             }
-                            PairUsers(uid, pairedUser);
                         }
+                        if(!pairedUser.equals("")){
+                            PairUsers(uid, pairedUser);
+                            return;
+                        }
+                        //no such user is found
+                        //update this user's match field
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        database.child("users").child(uid).child("match").setValue(true);
                     }
 
                     private void PairUsers(String Userone, String Usertwo){
                         Log.d("debug",Userone);
                         Log.d("debug",Usertwo);
                         //to be done
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        database.child("users").child(Usertwo).child("match").setValue(false);
+                   //     addToContact(Userone, Usertwo);
                     }
                 });
-
     }
 
 }
