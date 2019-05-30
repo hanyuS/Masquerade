@@ -16,6 +16,7 @@ public class User {
     private static User instance;
     public String gender;
     public String Uid;
+    public Boolean match = false;
     //todo: contact list & conversation
 
     private User() {
@@ -41,4 +42,5 @@ public class User {
     public void setGender(String gender){ this.gender = gender;}
     public void setUsername(String nickname){ this.username = nickname;}
     public void setUser_id(String uid){ this.Uid = uid;}
+    public void setMatch(Boolean match){this.match = match;}
 }
