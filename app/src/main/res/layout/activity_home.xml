@@ -98,6 +98,12 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="?android:attr/listDivider" />
+            <Button
+                android:id="@+id/contact_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="contact_list" />
         </LinearLayout>
     </ScrollView>
 
