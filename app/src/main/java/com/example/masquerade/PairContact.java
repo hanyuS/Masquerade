@@ -1,5 +1,7 @@
 package com.example.masquerade;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -20,8 +22,10 @@ import java.util.Random;
 
 
 
-public class PairContact extends AppCompatActivity {
+public class PairContact extends Activity {
     public static int numOfTags = 14;
+
+    final private String[] id={""};
     public static class User {
         public int userName;
         public boolean tags[];
@@ -62,7 +66,15 @@ public class PairContact extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //Get map of users in datasnapshot
+
                         collectUserTags((Map<String, Object>) dataSnapshot.getValue());
+                        Log.d("arrive here", "see if reach the end");
+                        Log.d("arrive here", "see");
+                        Intent output = new Intent();
+                        output.putExtra("MESSAGE", id[0]);
+                        Log.d("see the return", id[0]);
+                        setResult(2, output);
+                        finish();
                     }
 
                     @Override
@@ -113,7 +125,6 @@ public class PairContact extends AppCompatActivity {
                         }
                         Log.d("start pairing", "try pair");
                         findPairs(userTags, userId);
-
 
                         //System.out.println(userTags.toString());
                     }
@@ -173,6 +184,8 @@ public class PairContact extends AppCompatActivity {
                         if(!pairedUser.equals("")){
                             Log.d("start pair","see results");
                             PairUsers(uid, pairedUser);
+                            id[0]=pairedUser;
+                            Log.d("see paired user", pairedUser);
                             Log.d("finish pair","finish");
                             return ;
                         }
@@ -194,6 +207,7 @@ public class PairContact extends AppCompatActivity {
                    //     addToContact(Userone, Usertwo);
                     }
                 });
+        finish();
     }
 
 }

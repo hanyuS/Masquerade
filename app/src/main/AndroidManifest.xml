@@ -34,7 +34,8 @@
 
         <activity
             android:name=".PairContact"
-            android:label="PairContact">
+            android:label="PairContact"
+            android:theme="@android:style/Theme.NoDisplay">
         </activity>
 
         <meta-data

@@ -18,7 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 public class HomeActivity extends AppCompatActivity {
-
+    int code = 2;
+    String pairedUser="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,8 @@ public class HomeActivity extends AppCompatActivity {
                 if (times == 0) {
                     fab.setImageResource(R.drawable.rotate);
                     times = 1;
-                    startActivity(new Intent(HomeActivity.this, PairContact.class));
+                    Intent intent = new Intent(HomeActivity.this, PairContact.class);
+                    startActivityForResult(intent, code);
                 }
                 else if (times == 1){
                     fab.setImageResource(R.drawable.logo_small);
@@ -64,8 +66,6 @@ public class HomeActivity extends AppCompatActivity {
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
                     times = 0;
                 }
-//                Log.d("start pair", "start pair");
-//                startActivity(new Intent(HomeActivity.this, PairContact.class));
 
             }
         });
@@ -74,7 +74,32 @@ public class HomeActivity extends AppCompatActivity {
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 && data != null) {
+            pairedUser = data.getStringExtra("MESSAGE");
+        }
+        Log.d("see results in Home", pairedUser);
+        if(pairedUser.equals("")){
+            searchResult(false);
+        }
+        else{
+            searchResult(true);
+        }
 
+    }
+    public void searchResult(Boolean result){
+        if(result){
+            FloatingActionButton fab = findViewById(R.id.match);
+            fab.setImageResource(R.drawable.logo_small);
+            fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+        }
+        else{
+            Intent intent = new Intent(HomeActivity.this, PairContact.class);
+            startActivityForResult(intent, code);
+        }
+    }
 //    @Override
 //    public void onStart() {
 //        super.onStart();
