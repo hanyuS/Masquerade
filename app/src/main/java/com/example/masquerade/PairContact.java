@@ -180,7 +180,7 @@ public class PairContact extends AppCompatActivity {
                         //no such user is found
                         //update this user's match field
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        database.child("users").child(uid).child("match").setValue(true);
+                        database.child("Users").child(uid).child("match").setValue(true);
                     }
 
                     private void PairUsers(String Userone, String Usertwo){
@@ -188,7 +188,7 @@ public class PairContact extends AppCompatActivity {
                         Log.d("debug",Usertwo);
                         //to be done
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        database.child("users").child(Usertwo).child("match").setValue(false);
+                        database.child("Users").child(Usertwo).child("match").setValue(false);
                    //     addToContact(Userone, Usertwo);
                     }
                 });

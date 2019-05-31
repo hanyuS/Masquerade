@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             int times = 0;
             public void onClick(View v) {
-                /*
+
                 FloatingActionButton fab = findViewById(R.id.match);
                 if (times == 0) {
                     fab.setImageResource(R.drawable.rotate);
@@ -63,9 +63,9 @@ public class HomeActivity extends AppCompatActivity {
                     fab.setImageResource(R.drawable.ic_add_black_24dp);
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
                     times = 0;
-                }*/
-                Log.d("start pair", "start pair");
-                startActivity(new Intent(HomeActivity.this, PairContact.class));
+                }
+//                Log.d("start pair", "start pair");
+//                startActivity(new Intent(HomeActivity.this, PairContact.class));
 
             }
         });
