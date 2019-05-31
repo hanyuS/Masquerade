@@ -174,7 +174,7 @@ public class PairContact extends AppCompatActivity {
                             Log.d("start pair","see results");
                             PairUsers(uid, pairedUser);
                             Log.d("finish pair","finish");
-                            return;
+                            return ;
                         }
 
                         //no such user is found
@@ -189,6 +189,8 @@ public class PairContact extends AppCompatActivity {
                         //to be done
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                         database.child("Users").child(Usertwo).child("match").setValue(false);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).setValue(0);
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).setValue(0);
                    //     addToContact(Userone, Usertwo);
                     }
                 });
