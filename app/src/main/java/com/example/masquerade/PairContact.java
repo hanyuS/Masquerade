@@ -136,7 +136,7 @@ public class PairContact extends AppCompatActivity {
                         for(int i=0; i<size; i++){
                             Log.d("uid is", uid);
                             Log.d("current get uid is", uId.get(i));
-                            if(uId.get(i) == uid){
+                            if(uid.equals(uId.get(i).toString())){
                                 location = i;
                                 Log.d("find my own location:", ""+location);
                                 break;
