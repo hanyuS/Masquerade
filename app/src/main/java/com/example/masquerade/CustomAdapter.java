@@ -72,12 +72,14 @@ public class CustomAdapter extends BaseAdapter {
 
         holder.tvTagName.setText(model.getTagName());
 
-        if (model.isSelected())
+        if (model.isSelected()) {
+            holder.ivCheckBox.setVisibility(View.VISIBLE);
             holder.ivCheckBox.setBackgroundResource(R.drawable.checked);
-
-        else
+        }
+        else {
             holder.ivCheckBox.setBackgroundResource(R.drawable.check);
-
+            holder.ivCheckBox.setVisibility(View.INVISIBLE);
+        }
         return view;
 
     }
