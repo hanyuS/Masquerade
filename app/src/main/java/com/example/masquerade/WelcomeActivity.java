@@ -1,34 +1,34 @@
 package com.example.masquerade;
 
-import android.animation.ObjectAnimator;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.Toast;
+        import android.animation.ObjectAnimator;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.support.annotation.NonNull;
+        import android.support.constraint.ConstraintLayout;
+        import android.util.DisplayMetrics;
+        import android.util.Log;
+        import android.view.View;
+        import android.view.WindowManager;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
+        import android.widget.ImageButton;
+        import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseUserMetadata;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+        import com.google.android.gms.auth.api.signin.GoogleSignIn;
+        import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+        import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+        import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+        import com.google.android.gms.common.api.ApiException;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.auth.AuthCredential;
+        import com.google.firebase.auth.AuthResult;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+        import com.google.firebase.auth.FirebaseUserMetadata;
+        import com.google.firebase.auth.GoogleAuthProvider;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
 
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
     ConstraintLayout logo_layout;
@@ -129,7 +129,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         // Recurring signIn, direct to home page
         if (currentUser != null) {
             Log.d("ALRDY SIGNED IN", "user is signed in");
-            startActivity(new Intent(WelcomeActivity.this, SettingActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
             finish();
         }
     }
@@ -231,10 +231,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             signIn();
         }
     }
-        // todo : sign out, disconnect button
+    // todo : sign out, disconnect button
         /*
         else if (i == R.id.signOutButton) {
-
             signOut();
         } else if (i == R.id.disconnectButton) {
             revokeAccess();
@@ -243,7 +242,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     private void writeUser(String user_Id, String email){
         User user = User.getInstance();
         user.setEmail(email);
-        user.setUser_id(user_Id);
+        user.setUidd(user_Id);
         mDatabase.child("Users").child(user_Id).setValue(user);
     }
 }

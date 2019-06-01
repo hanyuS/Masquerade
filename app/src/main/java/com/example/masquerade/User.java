@@ -8,14 +8,15 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class User {
 
-    public String username;
+    public String nickname;
     public String email;
-    public String user_id;
     public int user_age;
     public Map<String,Boolean> user_tag;
     private static User instance;
     public String gender;
     public String Uid;
+    private String imageURL;
+    public Boolean match = false;
     //todo: contact list & conversation
 
     private User() {
@@ -39,6 +40,30 @@ public class User {
         this.user_tag = tags;
     }
     public void setGender(String gender){ this.gender = gender;}
-    public void setUsername(String nickname){ this.username = nickname;}
-    public void setUser_id(String uid){ this.Uid = uid;}
+
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setUidd(String uid) {
+        this.Uid = uid;
+    }
+    public String getUidd() {
+        return Uid;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setMatch(Boolean match){this.match = match;}
 }

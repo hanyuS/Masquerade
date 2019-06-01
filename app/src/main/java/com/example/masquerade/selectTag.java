@@ -115,6 +115,7 @@ public class selectTag extends AppCompatActivity implements View.OnClickListener
             user.setUser_tag(index_map);
             update_tags();
             startActivity(new Intent(selectTag.this,HomeActivity.class));
+            finish();
         }
 
     }
