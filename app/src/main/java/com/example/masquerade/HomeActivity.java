@@ -64,18 +64,8 @@ public class HomeActivity extends AppCompatActivity {
                 FloatingActionButton fab = findViewById(R.id.match);
                 if (times == 0) {
                     fab.setImageResource(R.drawable.rotate);
-
-                    String otherUser = pair();
-                    Log.d("paired users", otherUser);
-                    if(!otherUser.equals("")){
-                        times = 2;
-                        fab.setImageResource(R.drawable.logo_small);
-                        fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
-                    }
-                    else{
-                        waitPair();
-                        times = 2;
-                    }
+                    pair();
+                    waitPair();
                 }
 //                else if (times == 1){
 //                    fab.setImageResource(R.drawable.logo_small);
@@ -96,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
         toggle.syncState();
     }
 
-    public String pair(){
+    public void pair(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             System.err.println("Error occured, NO USER");
@@ -118,7 +108,8 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                     private void collectUserTags(Map<String,Object> users) {
-
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        database.child("Users").child(uid).child("match").setValue(true);
                         ArrayList<boolean []> userTags = new ArrayList<boolean[]>();
                         ArrayList<String> userId = new ArrayList<String>();
                         String [] tag_arr = {"sports","movie","music","video","games","digital technology","fashion",
@@ -129,7 +120,7 @@ public class HomeActivity extends AppCompatActivity {
 
                             //Get user map
                             Map singleUser = (Map) entry.getValue();
-                            if((!(Boolean) singleUser.get("match")) && (!uid.equals(singleUser.get("Uid").toString()))){
+                            if((!(Boolean) singleUser.get("match")) && !uid.equals(singleUser.get("Uid").toString())){
                                 Log.d("uid is", uid);
                                 Log.d("skip", singleUser.get("Uid").toString());
                                 Log.d("skip", singleUser.get("match").toString());
@@ -205,6 +196,7 @@ public class HomeActivity extends AppCompatActivity {
                             //get one user's tags
                             int ii = (i + randInt) % size;
                             if(ii == location){
+
                                 continue;
                             }
                             Log.d("match",uId.get(ii));
@@ -247,7 +239,7 @@ public class HomeActivity extends AppCompatActivity {
                         //     addToContact(Userone, Usertwo);
                     }
                 });
-        return pairedUser;
+        return;
     }
 
     public void waitPair(){
@@ -267,7 +259,7 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("see what changes", dataSnapshot.getKey());
                 Log.d("see what changes", dataSnapshot.getValue().toString());
 
-                if(dataSnapshot.getKey().equals("match") && dataSnapshot.getValue().toString().equals("true")){
+                if(dataSnapshot.getKey().equals("match") && dataSnapshot.getValue().toString().equals("false")){
                     FloatingActionButton fab = findViewById(R.id.match);
                     fab.setImageResource(R.drawable.logo_small);
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
