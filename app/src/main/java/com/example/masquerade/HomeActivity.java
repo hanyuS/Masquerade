@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Boolean match = (Boolean) dataSnapshot.child("match").getValue();
-                    if(match){
+                    if((match!= null )&& match ){
                         FloatingActionButton fab = findViewById(R.id.match);
                         fab.setImageResource(R.drawable.logo_small);
                         fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
