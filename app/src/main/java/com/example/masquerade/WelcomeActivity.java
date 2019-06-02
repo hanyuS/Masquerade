@@ -58,7 +58,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         System.out.println("Xxxxxxxxxx");
         getApplication().setTheme(R.style.AppTheme);
-        PairContact pc = new PairContact();
+        //PairContact pc = new PairContact();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
