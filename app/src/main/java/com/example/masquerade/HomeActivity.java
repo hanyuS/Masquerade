@@ -264,6 +264,9 @@ public class HomeActivity extends AppCompatActivity {
                     fab.setImageResource(R.drawable.logo_small);
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
                     pairedUser = dataSnapshot.child("contactlists").getValue(String.class);
+                    Intent intent = new Intent(HomeActivity.this , MessageActivity.class);
+                    intent.putExtra("userid",pairedUser);
+                    startActivity(intent);
                     return;
                 }
             }

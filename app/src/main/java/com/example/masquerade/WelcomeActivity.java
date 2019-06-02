@@ -38,6 +38,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
     ConstraintLayout logo_layout;
     ConstraintLayout welcome;
@@ -244,10 +245,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             signIn();
         }
     }
-        // todo : sign out, disconnect button
+    // todo : sign out, disconnect button
         /*
         else if (i == R.id.signOutButton) {
-
             signOut();
         } else if (i == R.id.disconnectButton) {
             revokeAccess();
@@ -256,7 +256,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     private void writeUser(String user_Id, String email){
         User user = User.getInstance();
         user.setEmail(email);
-        user.setUser_id(user_Id);
+        user.setUidd(user_Id);
         mDatabase.child("Users").child(user_Id).setValue(user);
     }
 }

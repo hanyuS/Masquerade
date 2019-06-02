@@ -60,7 +60,7 @@ public class SettingActivity extends AppCompatActivity {
         }
         else {
             user = User.getInstance();
-            user.setUsername(nick_name);
+            user.setNickname(nick_name);
             txt.setError(null);
             return true;
         }
@@ -75,6 +75,7 @@ public class SettingActivity extends AppCompatActivity {
         mDatabase.child("Users").child(currentUser.getUid()).child("nickname").setValue(nick_name);
         mDatabase.child("Users").child(currentUser.getUid()).child("gender").setValue(gender);
         startActivity(new Intent(SettingActivity.this, selectTag.class));
+        finish();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
