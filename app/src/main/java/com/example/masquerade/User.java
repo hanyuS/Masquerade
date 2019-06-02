@@ -15,10 +15,7 @@ public class User {
     private static User instance;
     public String gender;
     public String Uid;
-<<<<<<< HEAD
-=======
     private String imageURL;
->>>>>>> 3ffc9d952dfd7cec085a998f2ea6a2d52a9f1530
     public Boolean match = false;
     //todo: contact list & conversation
 

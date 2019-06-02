@@ -263,7 +263,7 @@ public class HomeActivity extends AppCompatActivity {
                     FloatingActionButton fab = findViewById(R.id.match);
                     fab.setImageResource(R.drawable.logo_small);
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
-                    pairedUser = dataSnapshot.child("contactlists").getValue(String.class);
+                    //pairedUser = dataSnapshot.child("contactlists").getValue(String.class);
                     Intent intent = new Intent(HomeActivity.this , MessageActivity.class);
                     intent.putExtra("userid",pairedUser);
                     startActivity(intent);
