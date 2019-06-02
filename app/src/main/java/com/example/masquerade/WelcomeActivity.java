@@ -256,7 +256,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     private void writeUser(String user_Id, String email){
         User user = User.getInstance();
         user.setEmail(email);
-        user.setUidd(user_Id);
+        user.setUser_id(user_Id);
         mDatabase.child("Users").child(user_Id).setValue(user);
+
     }
 }

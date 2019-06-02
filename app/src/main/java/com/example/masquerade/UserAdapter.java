@@ -44,7 +44,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("userid",user.getUidd());
+                intent.putExtra("userid",user.getUser_id());
                 mContext.startActivity(intent);
             }
         });

@@ -16,7 +16,7 @@ public class User {
     public String gender;
     public String Uid;
     private String imageURL;
-    public Boolean match = false;
+    public String match = "false";
     //todo: contact list & conversation
 
     private User() {
@@ -46,10 +46,10 @@ public class User {
         this.nickname = nickname;
     }
 
-    public void setUidd(String uid) {
+    public void setUser_id(String uid) {
         this.Uid = uid;
     }
-    public String getUidd() {
+    public String getUser_id() {
         return Uid;
     }
 
@@ -65,5 +65,5 @@ public class User {
         this.imageURL = imageURL;
     }
 
-    public void setMatch(Boolean match){this.match = match;}
+    public void setMatch(String match){this.match = match;}
 }

@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     private void collectUserTags(Map<String,Object> users) {
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        database.child("Users").child(uid).child("match").setValue(true);
+                        database.child("Users").child(uid).child("match").setValue("true");
                         ArrayList<boolean []> userTags = new ArrayList<boolean[]>();
                         ArrayList<String> userId = new ArrayList<String>();
                         String [] tag_arr = {"sports","movie","music","video","games","digital technology","fashion",
@@ -120,13 +120,13 @@ public class HomeActivity extends AppCompatActivity {
 
                             //Get user map
                             Map singleUser = (Map) entry.getValue();
-                            if((!(Boolean) singleUser.get("match")) && !uid.equals(singleUser.get("Uid").toString())){
+                            if((!singleUser.get("match").equals("true")) && !uid.equals(singleUser.get("Uid").toString())){
                                 Log.d("uid is", uid);
                                 Log.d("skip", singleUser.get("Uid").toString());
                                 Log.d("skip", singleUser.get("match").toString());
                                 continue;
                             }
-                            if(((Map)singleUser.get("contactlists")).containsKey(uid)){
+                            if(singleUser.containsKey("contactlists") && ((Map)singleUser.get("contactlists")).containsKey(uid)){
                                 continue;
                             }
                             userId.add((String) singleUser.get("Uid"));
@@ -224,7 +224,7 @@ public class HomeActivity extends AppCompatActivity {
                         //no such user is found
                         //update this user's match field
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        database.child("Users").child(uid).child("match").setValue(true);
+                        database.child("Users").child(uid).child("match").setValue("true");
                     }
 
                     private void PairUsers(String Userone, String Usertwo){
@@ -232,8 +232,8 @@ public class HomeActivity extends AppCompatActivity {
                         Log.d("debug",Usertwo);
                         //to be done
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                        database.child("Users").child(Userone).child("match").setValue(false);
-                        database.child("Users").child(Usertwo).child("match").setValue(false);
+                        database.child("Users").child(Userone).child("match").setValue(Usertwo);
+                        database.child("Users").child(Usertwo).child("match").setValue(Userone);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).setValue(0);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).setValue(0);
                         //     addToContact(Userone, Usertwo);
@@ -259,11 +259,12 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("see what changes", dataSnapshot.getKey());
                 Log.d("see what changes", dataSnapshot.getValue().toString());
 
-                if(dataSnapshot.getKey().equals("match") && dataSnapshot.getValue().toString().equals("false")){
+                if(dataSnapshot.getKey().equals("match") && !dataSnapshot.getValue().equals("true")){
                     FloatingActionButton fab = findViewById(R.id.match);
                     fab.setImageResource(R.drawable.logo_small);
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
-                    //pairedUser = dataSnapshot.child("contactlists").getValue(String.class);
+                    pairedUser = dataSnapshot.getValue(String.class);
+                    Log.d("the paired user is", pairedUser);
                     Intent intent = new Intent(HomeActivity.this , MessageActivity.class);
                     intent.putExtra("userid",pairedUser);
                     startActivity(intent);
