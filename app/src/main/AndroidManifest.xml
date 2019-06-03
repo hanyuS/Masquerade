@@ -24,12 +24,6 @@
             android:label="MessageActivity">
         </activity>
 
-        <activity android:name=".HomeActivity">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
-
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
