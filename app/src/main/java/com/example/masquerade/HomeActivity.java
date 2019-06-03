@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         //ListView navigation = findViewById(R.id.nav_list);
         findViewById(R.id.signout).setOnClickListener(this);
+        findViewById(R.id.setting_btn).setOnClickListener(this);
 
         //        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -128,6 +129,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         if(v.getId()==R.id.signout){
             signout();
+        }
+        if(v.getId()==R.id.setting_btn){
+            startActivity(new Intent(HomeActivity.this,SettingActivity.class));
         }
     }
     public void signout(){
