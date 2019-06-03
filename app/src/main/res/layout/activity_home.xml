@@ -107,11 +107,18 @@
                 android:text="contact_list" />
 
             <Button
-                android:id="@+id/signout"
+            android:id="@+id/signout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="signout" />
+
+            <Button
+                android:id="@+id/setting_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="signout" />
+                android:text="settings" />
         </LinearLayout>
     </ScrollView>
 
