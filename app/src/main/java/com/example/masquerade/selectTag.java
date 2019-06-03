@@ -117,7 +117,6 @@ public class selectTag extends AppCompatActivity implements View.OnClickListener
             startActivity(new Intent(selectTag.this,HomeActivity.class));
             finish();
         }
-
     }
 
     public void update_tags(){

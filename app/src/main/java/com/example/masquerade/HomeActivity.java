@@ -24,6 +24,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -39,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         //ListView navigation = findViewById(R.id.nav_list);
-
+        findViewById(R.id.signout).setOnClickListener(this)
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -85,6 +91,33 @@ public class HomeActivity extends AppCompatActivity {
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
     }
+    @Override
+    public void onClick(View v){
+        if(v.getId()==R.id.signout){
+            signout();
+        }
+    }
+    public void signout(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("1030427491069-3hvkhfksob78t4pjpua9pqhjekk1clef.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("finish signout","yes");
+                        startActivity(new Intent(HomeActivity.this,WelcomeActivity.class));
+                        finish();
+                    }
+                });
+    }
+
+    
 
     public void pair(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
