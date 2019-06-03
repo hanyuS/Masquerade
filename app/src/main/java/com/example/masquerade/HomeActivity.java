@@ -6,12 +6,10 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -35,17 +33,55 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     int code = 2;
+    Boolean Mask = false;
     String pairedUser="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        waitPair();
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         //ListView navigation = findViewById(R.id.nav_list);
-        findViewById(R.id.signout).setOnClickListener(this)
+        findViewById(R.id.signout).setOnClickListener(this);
+
+        //        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String curUID = user.getUid();
+//        database.child("Users").child(curUID).child("contactlists").addValueEventListener(
+//                new ValueEventListener(){
+//
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot contact: dataSnapshot.getChildren()) {
+//                            //contacts field 在方法外所以得想办法传出去值
+//                            //或者不需要每次contactlist更新的话可以尝试建一个dataSnapshot然后直接for each读取
+//                            //另外需要在contact list里添加两个field
+//                            //比如User1的contactlist里有user2 这个user2里需要两个field
+//                            //一个是pairtag，就是他们共享的tag
+//                            //另一个是value，是他们之间的那个数字
+//                            //paired user我改过了line248-250；287；295；308；315-320
+//                            ArrayList<contactItem> contacts = new ArrayList<>();
+//                            contacts.add(new contactItem(R.drawable.logo_small, contact.getValue().toString(), contact.child("pairtag").getValue().toString()));
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//        mRecycleView = findViewById(R.id.contact_list);
+//        mRecycleView.setHasFixedSize(true);
+//        mLayoutManaer = new LinearLayoutManager(this);
+//        mAdapter  = new contactAdapter(contacts);
+//        mRecycleView.setLayoutManager(mLayoutManaer);
+//        mRecycleView.setAdapter(mAdapter);
+
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -64,24 +100,21 @@ public class HomeActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.match);
         fab.setOnClickListener(new View.OnClickListener() {
-            int times = 0;
             public void onClick(View v) {
 
                 FloatingActionButton fab = findViewById(R.id.match);
-                if (times == 0) {
+                if (!Mask) {
                     fab.setImageResource(R.drawable.rotate);
                     pair();
-                    waitPair();
                 }
-//                else if (times == 1){
-//                    fab.setImageResource(R.drawable.logo_small);
-//                    times = 2;
-//                    fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
-//                }
                 else {
                     fab.setImageResource(R.drawable.ic_add_black_24dp);
                     fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
-                    times = 0;
+                    Intent intent = new Intent(HomeActivity.this , MessageActivity.class);
+                    intent.putExtra("userid",pairedUser);
+                    pairedUser = "";
+                    startActivity(intent);
+                    Mask = false;
                 }
 
             }
@@ -117,8 +150,6 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
-    
-
     public void pair(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
@@ -145,6 +176,7 @@ public class HomeActivity extends AppCompatActivity {
                         database.child("Users").child(uid).child("match").setValue("true");
                         ArrayList<boolean []> userTags = new ArrayList<boolean[]>();
                         ArrayList<String> userId = new ArrayList<String>();
+
                         String [] tag_arr = {"sports","movie","music","video","games","digital technology","fashion",
                                 "animation", "arts","make-up","travel","food","pets","academic"};
                         //iterate through each user, ignoring their UID
@@ -206,6 +238,9 @@ public class HomeActivity extends AppCompatActivity {
                         //String pairedUser = "";
 
                         //find this uid's location
+                        String sametag = "";
+                        String [] tagArr = {"sports","movie","music","video","games","digital technology","fashion",
+                                "animation", "arts","make-up","travel","food","pets","academic"};
                         int location = 0;
                         for(int i=0; i<size; i++){
                             Log.d("uid is", uid);
@@ -239,6 +274,7 @@ public class HomeActivity extends AppCompatActivity {
                                 //find one tag
                                 if(thisTag[j] && thisusertags[j]){
                                     pairedUser = uId.get(ii);
+                                    sametag =  tagArr[j];
                                     Log.d("find user", pairedUser);
                                     break OUT1;
                                 }
@@ -247,7 +283,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         if(!pairedUser.equals("")){
                             Log.d("start pair","see results");
-                            PairUsers(uid, pairedUser);
+                            PairUsers(uid, pairedUser, sametag);
 //                            id[0]=pairedUser;
                             Log.d("see paired user", pairedUser);
                             Log.d("finish pair","finish");
@@ -260,15 +296,17 @@ public class HomeActivity extends AppCompatActivity {
                         database.child("Users").child(uid).child("match").setValue("true");
                     }
 
-                    private void PairUsers(String Userone, String Usertwo){
+                    private void PairUsers(String Userone, String Usertwo, String sametag){
                         Log.d("debug",Userone);
                         Log.d("debug",Usertwo);
                         //to be done
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                         database.child("Users").child(Userone).child("match").setValue(Usertwo);
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
-                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).setValue(0);
-                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).setValue(0);
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).setValue(sametag);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).setValue(sametag);
+                        database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(0);
+                        database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(0);
                         //     addToContact(Userone, Usertwo);
                     }
                 });
@@ -294,32 +332,26 @@ public class HomeActivity extends AppCompatActivity {
 
                 if(dataSnapshot.getKey().equals("match") && !dataSnapshot.getValue().equals("true")){
                     FloatingActionButton fab = findViewById(R.id.match);
+                    Mask = true;
                     fab.setImageResource(R.drawable.logo_small);
                     fab.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
                     pairedUser = dataSnapshot.getValue(String.class);
                     Log.d("the paired user is", pairedUser);
-                    Intent intent = new Intent(HomeActivity.this , MessageActivity.class);
-                    intent.putExtra("userid",pairedUser);
-                    startActivity(intent);
                     return;
                 }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
-
 }

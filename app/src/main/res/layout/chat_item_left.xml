@@ -20,6 +20,7 @@
         android:id="@+id/show_message"
         android:textSize="20sp"
         android:padding="8dp"
-        android:background="@drawable/background_left"/>
+        android:background="@drawable/background_left"
+        android:textColor="#000"/>
 
 </RelativeLayout>
