@@ -5,19 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+
+import com.google.android.gms.common.api.ApiException;
+
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.FirebaseApp;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,10 +31,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static android.app.PendingIntent.getActivity;
 import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
     ConstraintLayout logo_layout;
@@ -48,7 +57,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Log.d("Created", "ON CREATE");
         super.onCreate(savedInstanceState);
+        System.out.println("Xxxxxxxxxx");
         getApplication().setTheme(R.style.AppTheme);
+        //PairContact pc = new PairContact();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -56,6 +67,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             getSupportActionBar().hide();
         }
         setContentView(R.layout.activity_welcome);
+
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
 
         logo_layout = findViewById(R.id.logo_layout);
         welcome = findViewById(R.id.welcome);
@@ -106,7 +119,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             public void onAnimationRepeat(Animation animation) {}
         });
 
-        start.setOnClickListener(new View.OnClickListener() {
+        start.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ObjectAnimator animation = ObjectAnimator.ofFloat(welcome, "translationY", height);
@@ -117,8 +130,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 logo_layout.removeView(start);
             }
         });
-
     }
+
+
     // [START on_start_check_user]
     @Override
     public void onStart() {
@@ -231,10 +245,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             signIn();
         }
     }
-        // todo : sign out, disconnect button
+    // todo : sign out, disconnect button
         /*
         else if (i == R.id.signOutButton) {
-
             signOut();
         } else if (i == R.id.disconnectButton) {
             revokeAccess();
@@ -245,5 +258,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         user.setEmail(email);
         user.setUser_id(user_Id);
         mDatabase.child("Users").child(user_Id).setValue(user);
+
     }
 }
