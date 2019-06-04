@@ -341,6 +341,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(sametag);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(sametag);
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("isFriend").setValue(false);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("isFriend").setValue(false);
                         database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(-2);
                         database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(-2);
                         //     addToContact(Userone, Usertwo);

@@ -92,9 +92,15 @@ public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactH
         contactHolder.pairedTag.setText(currentContact.getPairedTag());
 
         if(currentContact.getFriend()){
-            contactHolder.checkProfile.setVisibility(View.VISIBLE);
-            contactHolder.chat.setVisibility(View.GONE);
-            contactHolder.onClick(currentContact.getContactId());
+            if(!currentContact.getContactId().equals("")){
+                contactHolder.checkProfile.setVisibility(View.VISIBLE);
+                contactHolder.chat.setVisibility(View.GONE);
+                contactHolder.onClick(currentContact.getContactId());
+            }
+            else{
+                contactHolder.chat.setVisibility(View.GONE);
+                contactHolder.checkProfile.setVisibility(View.GONE);
+            }
         }
         else{
 

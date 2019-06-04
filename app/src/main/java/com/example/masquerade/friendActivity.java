@@ -56,13 +56,16 @@ public class friendActivity extends AppCompatActivity {
 
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list = new ArrayList<contactItem>();
+                list.add(new contactItem(R.drawable.logo_small,"Check profile page to add Friends","","",true));
                 Log.d("firebase snapshot",dataSnapshot.getKey());
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Log.d("some","some");
                     Log.d("the friend name is", dataSnapshot1.getKey());
                     Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
-                    contactItem item = new contactItem(R.drawable.logo_small, "tags",dataSnapshot1.child("tags").getValue(String.class),dataSnapshot1.getKey(),true);
-                    list.add(item);
+                    if((Boolean) dataSnapshot1.child("isFriend").getValue()) {
+                        contactItem item = new contactItem(R.drawable.logo_small, "tags", dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), true);
+                        list.add(item);
+                    }
                 }
                 adapter = new contactAdapter(friendActivity.this,list);
                 recyclerView.setAdapter(adapter);

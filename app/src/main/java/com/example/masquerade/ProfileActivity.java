@@ -171,6 +171,8 @@ public class ProfileActivity extends AppCompatActivity {
         else if(theirFriendLevel == -1){
             reference.child(uid).child("friendlists").child(contactId).setValue(0);
             reference.child(contactId).child("friendlists").child(uid).setValue(0);
+            reference.child(uid).child("contactlists").child(contactId).child("isFriend").setValue(true);
+            reference.child(contactId).child("contactlists").child(uid).child("isFriend").setValue(true);
             Toast.makeText(ProfileActivity.this, "You two are friends now!", Toast.LENGTH_LONG).show();
         }
     }
