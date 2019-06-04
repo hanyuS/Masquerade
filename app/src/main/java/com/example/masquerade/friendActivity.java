@@ -45,7 +45,7 @@ public class friendActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.contact_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<contactItem>();
+
 
         FirebaseUser curUser = FirebaseAuth.getInstance().getCurrentUser();
         String curUID = curUser.getUid();
@@ -55,6 +55,7 @@ public class friendActivity extends AppCompatActivity {
             @Override
 
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list = new ArrayList<contactItem>();
                 Log.d("firebase snapshot",dataSnapshot.getKey());
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Log.d("some","some");
