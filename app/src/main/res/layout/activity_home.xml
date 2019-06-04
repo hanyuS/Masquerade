@@ -127,6 +127,19 @@
                 android:text="Friend List" />
 
             <Button
+                android:id="@+id/setting_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="left"
+                android:background="@color/background"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Settings" />
+
+            <Button
                 android:id="@+id/signout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,18 +152,7 @@
                 android:paddingRight="20dp"
                 android:text="Sign Out" />
 
-            <Button
-                android:id="@+id/setting_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="left"
-                android:background="@color/background"
-                android:fontFamily="sans-serif-light"
-                android:gravity="left"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="Settings" />
+
         </LinearLayout>
     </ScrollView>
 

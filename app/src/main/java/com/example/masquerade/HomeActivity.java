@@ -142,9 +142,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v){
         if(v.getId()==R.id.signout){
+            Log.d("whatis wroing", "ABCD");
             signout();
         }
         if(v.getId()==R.id.setting_btn){
+            Log.d("toastTest", "ABCD");
             if(pairing)
             {
                 drawer.closeDrawers();
