@@ -10,21 +10,21 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactHoler> {
+public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactHolder> {
     private ArrayList<contactItem> mContactList;
 
-    public static class contactHoler extends RecyclerView.ViewHolder{
+    public static class contactHolder extends RecyclerView.ViewHolder{
 
         public ImageView mImageView;
         public TextView contactNickname;
         public TextView pairedTag;
 
 
-        public contactHoler(@NonNull View itemView) {
+        public contactHolder(@NonNull View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.avatar);
-            contactNickname = itemView.findViewById(R.id.contact_name);
-            pairedTag = itemView.findViewById(R.id.contact_tag);
+            mImageView = (ImageView) itemView.findViewById(R.id.avatar);
+            contactNickname = (TextView) itemView.findViewById(R.id.contact_name);
+            pairedTag = (TextView) itemView.findViewById(R.id.contact_tag);
         }
     }
 
@@ -34,18 +34,19 @@ public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactH
 
     @NonNull
     @Override
-    public contactHoler onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public contactHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.contact_item, viewGroup, false);
-        contactHoler vh = new contactHoler(v);
+        contactHolder vh = new contactHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull contactHoler contactHoler, int i) {
+    public void onBindViewHolder(@NonNull contactHolder contactHolder, int i) {
         contactItem currentContact = mContactList.get(i);
-        contactHoler.mImageView.setImageResource(currentContact.getAvatarSource());
-        contactHoler.contactNickname.setText(currentContact.getContactNickname());
-        contactHoler.pairedTag.setText(currentContact.getPairedTag());
+        contactHolder.mImageView.setImageResource(currentContact.getAvatarSource());
+        contactHolder.contactNickname.setText(currentContact.getContactNickname());
+        contactHolder.pairedTag.setText(currentContact.getPairedTag());
+
     }
 
     @Override

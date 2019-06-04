@@ -10,9 +10,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,20 +41,54 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     int code = 2;
     Boolean Mask = false;
     String pairedUser="";
+    Boolean pairing = false;
+    DrawerLayout drawer;
+    RecyclerView recyclerView;
+    ArrayList<contactItem> list;
+    contactAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         waitPair();
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         //ListView navigation = findViewById(R.id.nav_list);
         findViewById(R.id.signout).setOnClickListener(this);
         findViewById(R.id.setting_btn).setOnClickListener(this);
 
-        //        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String curUID = user.getUid();
+        recyclerView = (RecyclerView)findViewById(R.id.contact_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        list = new ArrayList<contactItem>();
+        list.add(new contactItem(R.drawable.logo_small,"Press '+' TO Make Friends",""));
+//        mRecycleView.setHasFixedSize(true);
+//        mLayoutManaer = new LinearLayoutManager(this);
+//        mAdapter  = new contactAdapter(contacts);
+//        mRecycleView.setLayoutManager(mLayoutManaer);
+//        mRecycleView.setAdapter(mAdapter);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String curUID = user.getUid();
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(curUID).child("contactlists");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    Log.d("the friend name is", dataSnapshot1.getKey());
+                    Log.d("the pair tag is", dataSnapshot1.getValue(String.class));
+                    contactItem item = new contactItem(R.drawable.logo_small, dataSnapshot1.getKey(),dataSnapshot1.getValue(String.class));
+                    list.add(item);
+                }
+                adapter = new contactAdapter(list);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(HomeActivity.this,"Somethins is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
 //        database.child("Users").child(curUID).child("contactlists").addValueEventListener(
 //                new ValueEventListener(){
 //
@@ -75,12 +113,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                    }
 //                });
 //
-//        mRecycleView = findViewById(R.id.contact_list);
-//        mRecycleView.setHasFixedSize(true);
-//        mLayoutManaer = new LinearLayoutManager(this);
-//        mAdapter  = new contactAdapter(contacts);
-//        mRecycleView.setLayoutManager(mLayoutManaer);
-//        mRecycleView.setAdapter(mAdapter);
+
 
 
         setSupportActionBar(toolbar);
@@ -107,6 +140,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (!Mask) {
                     fab.setImageResource(R.drawable.rotate);
                     pair();
+                    pairing = true;
                 }
                 else {
                     fab.setImageResource(R.drawable.ic_add_black_24dp);
@@ -116,6 +150,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     pairedUser = "";
                     startActivity(intent);
                     Mask = false;
+                    pairing = false;
                 }
 
             }
@@ -131,6 +166,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             signout();
         }
         if(v.getId()==R.id.setting_btn){
+            if(pairing)
+            {
+                drawer.closeDrawers();
+                Log.d("toastTest", "ABCD");
+                Toast.makeText(HomeActivity.this, "You cannot change your settings while searching for contacts", Toast.LENGTH_LONG).show();
+                return;
+            }
             startActivity(new Intent(HomeActivity.this,SettingActivity.class));
         }
     }
@@ -309,8 +351,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).setValue(sametag);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).setValue(sametag);
-                        database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(0);
-                        database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(0);
+                        database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(-2);
+                        database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(-2);
                         //     addToContact(Userone, Usertwo);
                     }
                 });

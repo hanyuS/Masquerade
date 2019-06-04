@@ -14,5 +14,6 @@
     <string name="third_label">Other</string>
     <string name="setting_gender">Gender\:</string>
     <string name="title_activity_tag">selectTag</string>
+    <string name="chat">Chat!</string>
 
 </resources>

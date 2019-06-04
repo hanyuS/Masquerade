@@ -17,6 +17,7 @@ public class User {
     public String Uid;
     private String imageURL;
     public String match = "false";
+  //  public String ContactLists;
     //todo: contact list & conversation
 
     private User() {
@@ -41,6 +42,9 @@ public class User {
     }
     public void setGender(String gender){ this.gender = gender;}
 
+//    public void setContactLists(String contactLists) {
+//        ContactLists = contactLists;
+//    }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
@@ -52,6 +56,10 @@ public class User {
     public String getUser_id() {
         return Uid;
     }
+
+//    public String getContactLists() {
+//        return ContactLists;
+//    }
 
     public String getNickname() {
         return nickname;
