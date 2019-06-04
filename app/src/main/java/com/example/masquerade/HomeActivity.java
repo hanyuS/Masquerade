@@ -94,7 +94,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
+                super.
+                        onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
             }
         };
@@ -117,7 +118,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                     Mask = false;
                 }
-
             }
         });
 

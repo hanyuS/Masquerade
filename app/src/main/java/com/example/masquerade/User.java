@@ -19,6 +19,8 @@ public class User {
     public String match = "false";
     //todo: contact list & conversation
 
+    public int profileInd;
+
     private User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
@@ -66,4 +68,8 @@ public class User {
     }
 
     public void setMatch(String match){this.match = match;}
+
+    public int getProfileInd(int profileInd){return this.profileInd;}
+
+    public void setProfileInd(int profileInd){this.profileInd = profileInd;}
 }
