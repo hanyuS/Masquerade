@@ -53,7 +53,10 @@
             android:layout_below="@+id/toolbar"
             android:padding="10dp"
             android:scrollbars="vertical">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27077805bc901d9eb43f26e6b473e994918f9d91
 
         </android.support.v7.widget.RecyclerView>
 
@@ -70,7 +73,10 @@
             android:src="@drawable/ic_add_black_24dp"
             app:backgroundTint="@color/colorAccent" />
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27077805bc901d9eb43f26e6b473e994918f9d91
     </RelativeLayout>
 
     <ScrollView
@@ -109,9 +115,11 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="20dp"
                 android:background="?android:attr/listDivider" />
+
             <Button
                 android:id="@+id/btn_friendlist"
                 android:layout_width="match_parent"
