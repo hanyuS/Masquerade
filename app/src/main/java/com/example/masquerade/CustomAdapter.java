@@ -77,7 +77,8 @@ public class CustomAdapter extends BaseAdapter {
             holder.ivCheckBox.setBackgroundResource(R.drawable.checked);
         }
         else {
-            holder.ivCheckBox.setBackgroundResource(R.drawable.check);
+            //holder.ivCheckBox.setBackgroundResource(R.drawable.check);
+            holder.ivCheckBox.setBackgroundResource(R.color.fui_transparent);
             holder.ivCheckBox.setVisibility(View.INVISIBLE);
         }
         return view;

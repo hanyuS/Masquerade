@@ -41,9 +41,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/start_chat"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:text="@string/chat"
             android:layout_toEndOf="@id/contact_name"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_profile"
+            android:visibility="visible"
+            android:text="@string/check"
+            android:layout_toEndOf="@id/start_chat"/>
 
     </RelativeLayout>
 

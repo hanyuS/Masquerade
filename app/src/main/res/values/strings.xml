@@ -15,5 +15,7 @@
     <string name="setting_gender">Gender\:</string>
     <string name="title_activity_tag">selectTag</string>
     <string name="chat">Chat!</string>
+    <string name="title_activity_friend">friendActivity</string>
+    <string name="check">Check Details</string>
 
 </resources>
