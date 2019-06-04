@@ -42,7 +42,6 @@
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="false"
-            android:layout_marginStart="23dp"
             android:clickable="true"
             android:fillViewport="true"
             android:focusable="true"
