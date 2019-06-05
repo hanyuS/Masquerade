@@ -30,6 +30,21 @@
             android:textColor="#fff"
             android:textStyle="bold"
             />
+
+        <TextView
+            android:id="@+id/knownTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/unknownTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            />
         <Button
             android:id="@+id/btn_addFriend"
             android:layout_width="match_parent"
