@@ -38,9 +38,9 @@ public class MessageActivity extends AppCompatActivity {
     TextView username;
 
     FirebaseUser fuser;
-    DatabaseReference reference;
+    DatabaseReference reference,myReference;
 
-    ImageButton btn_send;
+    ImageButton btn_send, btn_profile;
     EditText text_send;
 
     MessageAdapter messageAdapter;
@@ -49,7 +49,7 @@ public class MessageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     Intent intent;
-
+    int friendLevel, theirFriendLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +76,7 @@ public class MessageActivity extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
         btn_send = findViewById(R.id.btn_send);
+        btn_profile = findViewById(R.id.btn_profile);
         text_send = findViewById(R.id.text_send);
 
         intent = getIntent();
@@ -86,30 +87,64 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String msg = text_send.getText().toString();
+                if(friendLevel == -3) {
+                    Toast.makeText(MessageActivity.this, "You can't send message, since you two are no longer contacts", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(!msg.equals("")){
                     sendMessage(fuser.getUid(), userid, msg);
                 } else{
                     Toast.makeText(MessageActivity.this, "You can't send empty message", Toast.LENGTH_SHORT).show();
                 }
+                if(friendLevel >= 0) {
+                    myReference.child("friendlists").child(userid).setValue(friendLevel + 1);
+                }
                 text_send.setText("");
             }
         });
+
+        btn_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent profileIntent = new Intent(MessageActivity.this,ProfileActivity.class);
+                profileIntent.putExtra("contactid",userid);
+                startActivity(profileIntent);
+            }
+        });
+
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean isFriend = dataSnapshot.child("contactlists").child(fuser.getUid()).child("isFriend").getValue(Boolean.class);
                 User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getNickname());
+                if(isFriend){
+                    username.setText(user.nickname);
+                }
+                else username.setText("Anonymous");
                 /*if (user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else{
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
                 }*/
                 readMessages(fuser.getUid(), userid/*, user.getImageURL()*/);
+
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myReference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        myReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                friendLevel = Integer.parseInt(dataSnapshot.child("friendlists").child(userid).getValue().toString());
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

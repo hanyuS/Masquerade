@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
-    <android.support.design.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -50,8 +50,10 @@
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:padding="4dp">
+            android:layout_below="@+id/toolbar"
+            android:padding="10dp"
+            android:scrollbars="vertical">
+
 
         </android.support.v7.widget.RecyclerView>
 
@@ -59,12 +61,17 @@
             android:id="@+id/match"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
+            android:layout_alignEnd="@+id/contact_list"
+            android:layout_alignBottom="@+id/contact_list"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:src="@drawable/ic_add_black_24dp"
             app:backgroundTint="@color/colorAccent" />
 
-    </android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/nav_list"
@@ -72,7 +79,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/background"
-        android:padding="20dp">
+        android:elevation="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,6 +98,8 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/colorAccent"
                 android:fontFamily="@font/candara"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="@string/app_name_cap"
                 android:textColor="@color/colorAccent" />
 
@@ -96,29 +107,52 @@
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="?android:attr/listDivider" />
+
             <Button
-                android:id="@+id/contact_list_buttom"
+                android:id="@+id/btn_friendlist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="contact_list" />
-
-            <Button
-            android:id="@+id/signout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="signout" />
+                android:layout_gravity="left"
+                android:background="@color/background"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Friend List" />
 
             <Button
                 android:id="@+id/setting_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="settings" />
+                android:layout_gravity="left"
+                android:background="@color/background"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Settings" />
+
+            <Button
+                android:id="@+id/signout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="left"
+                android:background="@color/background"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Sign Out" />
+
+
         </LinearLayout>
     </ScrollView>
 

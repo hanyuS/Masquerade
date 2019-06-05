@@ -27,7 +27,7 @@
             android:layout_toEndOf="@+id/avatar"
             android:id="@+id/contact_name"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Line 2"
             android:textColor="@android:color/darker_gray"
@@ -37,6 +37,21 @@
             android:layout_marginStart="8dp"
             android:layout_below="@+id/contact_name"
             android:id="@+id/contact_tag"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/start_chat"
+            android:visibility="visible"
+            android:text="@string/chat"
+            android:layout_toEndOf="@id/contact_name"
+            android:layout_marginLeft="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_profile"
+            android:visibility="visible"
+            android:text="@string/check"
+            android:layout_toEndOf="@id/start_chat"/>
 
     </RelativeLayout>
 
