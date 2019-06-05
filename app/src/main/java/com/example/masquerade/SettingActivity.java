@@ -3,6 +3,7 @@ package com.example.masquerade;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ public class SettingActivity extends AppCompatActivity {
     FirebaseUser currentUser = mAuth.getCurrentUser();
     RadioGroup group;
     TextInputLayout txt;
+    TextInputEditText editText;
     RadioButton button;
     //todo: check logic
     boolean is_set_button = false;
@@ -41,8 +43,13 @@ public class SettingActivity extends AppCompatActivity {
     ImageView mask6;
     ImageView mask7;
 
+    RadioButton male;
+    RadioButton female;
+    RadioButton other;
 
-    int profileInd;
+    String profileInd;
+
+    boolean pick_image = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,7 @@ public class SettingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         group = findViewById(R.id.gender);
         txt = findViewById(R.id.input);
-
+        editText = findViewById(R.id.editText);
         mask1 = findViewById(R.id.imageView6);
         mask2 = findViewById(R.id.imageView14);
         mask3 = findViewById(R.id.imageView15);
@@ -62,11 +69,14 @@ public class SettingActivity extends AppCompatActivity {
         mask6 = findViewById(R.id.imageView19);
         mask7 = findViewById(R.id.imageView20);
 
+
         mask1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 1");
                 user = User.getInstance();
-                user.setProfileInd(1);
+                user.setProfileInd("1");
+                pick_image = true;
+
             }
         });
 
@@ -74,7 +84,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 2");
                 user = User.getInstance();
-                user.setProfileInd(2);
+                user.setProfileInd("2");
+                pick_image = true;
             }
         });
 
@@ -82,7 +93,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 3");
                 user = User.getInstance();
-                user.setProfileInd(3);
+                user.setProfileInd("3");
+                pick_image = true;
             }
         });
 
@@ -90,7 +102,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 4");
                 user = User.getInstance();
-                user.setProfileInd(4);
+                user.setProfileInd("4");
+                pick_image = true;
             }
         });
 
@@ -98,7 +111,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 5");
                 user = User.getInstance();
-                user.setProfileInd(5);
+                user.setProfileInd("5");
+                pick_image = true;
             }
         });
 
@@ -106,7 +120,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 6");
                 user = User.getInstance();
-                user.setProfileInd(6);
+                user.setProfileInd("6");
+                pick_image = true;
             }
         });
 
@@ -114,7 +129,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 7");
                 user = User.getInstance();
-                user.setProfileInd(7);
+                user.setProfileInd("7");
+                pick_image = true;
             }
         });
 
@@ -122,6 +138,33 @@ public class SettingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        male = findViewById(R.id.second);
+        female = findViewById(R.id.first);
+        other = findViewById(R.id.third);
+
+
+        user = User.getInstance();
+        editText.setText(user.nickname);
+
+//        Log.w("log info",user.nickname);
+
+//        if(user.gender == "Male") {
+//            group.check(R.id.second);
+//            male.setChecked(true);
+//            Log.w("male","check");
+//        }
+//
+//        else if(user.gender == "Female") {
+//            Log.w("male", "female");
+//            group.check(R.id.first);
+//            female.setChecked(true);
+//        }
+//        else if(user.gender == "Other"){
+//            group.check(R.id.third);
+//            other.setChecked(true);
+//            Log.w("male","other");
+//        }
     }
 
     @Override
@@ -133,6 +176,10 @@ public class SettingActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 
     public void checkButton(View v){
         int radioId = group.getCheckedRadioButtonId();
@@ -164,15 +211,20 @@ public class SettingActivity extends AppCompatActivity {
             Toast.makeText(this,"please select a gender", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(!pick_image){
+            Toast.makeText(this,"please select a profile image", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(!validate_nickname()){ return ;}
         mDatabase.child("Users").child(currentUser.getUid()).child("nickname").setValue(nick_name);
         mDatabase.child("Users").child(currentUser.getUid()).child("gender").setValue(gender);
+        mDatabase.child("Users").child(currentUser.getUid()).child("profileInd").setValue(profileInd);
         startActivity(new Intent(SettingActivity.this, selectTag.class));
         finish();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }

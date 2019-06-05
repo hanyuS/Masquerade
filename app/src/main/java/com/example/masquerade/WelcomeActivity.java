@@ -35,8 +35,11 @@ import com.google.firebase.auth.FirebaseUser;
 import static android.app.PendingIntent.getActivity;
 import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
@@ -48,8 +51,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth  mAuth;
     private DatabaseReference mDatabase;
+    private DatabaseReference reference;
     // [END declare_auth]
-
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -139,10 +142,42 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         // Recurring signIn, direct to home page
         if (currentUser != null) {
             Log.d("ALRDY SIGNED IN", "user is signed in");
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
+
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // todo: 1. create clear method in Use class to set all fields to default
+                    // todo: 2. call the clear method;
+                    // todo: 2. user field copy to curr user field
+                    User user = dataSnapshot.getValue(User.class);
+                    User curr = User.getInstance();
+                    curr.setNickname(user.getNickname());
+//                    curr.setGender(user.getGender());
+//                    curr.setEmail((user.getEmail()));
+//                    curr.setMatch((user.getMatch()));
+//                    curr.setProfileInd((user.getProfileInd()));
+//                    curr.setUser_id((user.getUser_id()));
+//                    curr.setUser_tag((user.getUser_tag()));
+//                    curr.setImageURL((user.getImageURL()));
+//                    curr.setUser_age((user.getUser_age()));
+
+
+                    Log.d("datachange","changes");
+
+                    User two = User.getInstance();
+                    Log.d("user_nickname",curr.getNickname());
+                    Log.d("curr_nickname",user.getNickname());
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
             finish();
         }
@@ -202,9 +237,22 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                 finish();
 
                             } else {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
 
+                                reference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        User user = dataSnapshot.getValue(User.class);
+                                        User curr = User.getInstance();
+                                        curr = user;
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
                                 // This is an existing user, show home page.
-                                startActivity(new Intent(WelcomeActivity.this, SettingActivity.class));
+                                startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
                                 finish();
                             }
 
