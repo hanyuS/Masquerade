@@ -180,6 +180,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void removeContact(View view) {
         reference.child(uid).child("friendlists").child(contactId).setValue(-3);
         reference.child(contactId).child("friendlists").child(uid).setValue(-3);
+        reference.child(uid).child("contactlists").child(contactId).child("isFriend").setValue(false);
+        reference.child(contactId).child("contactlists").child(uid).child("isFriend").setValue(false);
         removeContact.setEnabled(false);
     }
 }

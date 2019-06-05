@@ -118,8 +118,12 @@ public class MessageActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean isFriend = dataSnapshot.child("contactlists").child(fuser.getUid()).child("isFriend").getValue(Boolean.class);
                 User user = dataSnapshot.getValue(User.class);
-                username.setText("Anonymous");
+                if(isFriend){
+                    username.setText(user.nickname);
+                }
+                else username.setText("Anonymous");
                 /*if (user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else{
