@@ -7,7 +7,9 @@ public class contactItem {
     private String contactId;
     private Boolean friend;
 
+
     public contactItem(String picSource, String contactName, String tag, String id, Boolean isfriend){
+
         avatarSource = picSource;
         contactNickname = contactName;
         pairedTag = tag;

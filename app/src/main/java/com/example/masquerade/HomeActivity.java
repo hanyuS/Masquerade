@@ -65,6 +65,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
         FirebaseUser curUser = FirebaseAuth.getInstance().getCurrentUser();
         String curUID = curUser.getUid();
         Log.d("get value from firebase",curUID);
@@ -89,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.setAdapter(adapter);
                 Log.d("finish read firebase","finish");
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -339,6 +341,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d("debug",Usertwo);
                         //to be done
                         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
                         database.child("Users").child(Userone).child("match").setValue(Usertwo);
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
                         database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -359,6 +362,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         });
+
 
 
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(sametag);

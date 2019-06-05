@@ -23,11 +23,13 @@
             android:textColor="#fff"
             android:textStyle="bold"
             />
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="2dp"
             android:id="@+id/profile_pic"/>
+
         <TextView
             android:id="@+id/gender"
             android:layout_width="wrap_content"

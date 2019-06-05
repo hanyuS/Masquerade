@@ -123,6 +123,7 @@ public class MessageActivity extends AppCompatActivity {
                 if(isFriend){
                     username.setText(user.nickname);
                 }
+
                 else {
                     username.setText("Anonymous");
                 }
@@ -133,6 +134,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
 
                 readMessages(fuser.getUid(), userid, user.getProfileInd());
+
 
             }
 
@@ -166,7 +168,9 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
+
     private void readMessages(final String myid, final String userid, final String imageurl){
+
         mchat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -181,7 +185,9 @@ public class MessageActivity extends AppCompatActivity {
                         mchat.add(chat);
                     }
 
+
                     messageAdapter = new MessageAdapter(MessageActivity.this,mchat, imageurl);
+
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
