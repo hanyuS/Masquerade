@@ -145,30 +145,35 @@ public class SettingActivity extends AppCompatActivity {
 
 
         user = User.getInstance();
-        editText.setText(user.nickname);
+        if(user.getNickname() != null)
+            editText.setText(user.nickname);
 
 //        Log.w("log info",user.nickname);
 
-        if(user.getGender().equals("Male")) {
-            group.check(R.id.second);
-            male.setChecked(true);
-            Log.w("male","check");
-            is_set_button = true;
+        if(user.getGender() != null) {
+            if (user.getGender().equals("Male")) {
+                group.check(R.id.second);
+                male.setChecked(true);
+                Log.w("male", "check");
+                is_set_button = true;
+            } else if (user.getGender().equals("Female")) {
+                Log.w("male", "female");
+                group.check(R.id.first);
+                female.setChecked(true);
+                is_set_button = true;
+            } else if (user.getGender().equals("Other")) {
+                group.check(R.id.third);
+                other.setChecked(true);
+                Log.w("male", "other");
+                is_set_button = true;
+            }
         }
 
-        else if(user.getGender().equals("Female")) {
-            Log.w("male", "female");
-            group.check(R.id.first);
-            female.setChecked(true);
-            is_set_button = true;
-        }
-        else if(user.getGender().equals("Other")){
-            group.check(R.id.third);
-            other.setChecked(true);
-            Log.w("male","other");
-            is_set_button = true;
+        if(user.getProfileInd() != null){
+            pick_image = true;
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -222,6 +227,7 @@ public class SettingActivity extends AppCompatActivity {
         mDatabase.child("Users").child(currentUser.getUid()).child("nickname").setValue(nick_name);
         mDatabase.child("Users").child(currentUser.getUid()).child("gender").setValue(gender);
         mDatabase.child("Users").child(currentUser.getUid()).child("profileInd").setValue(profileInd);
+
         startActivity(new Intent(SettingActivity.this, selectTag.class));
         finish();
     }
