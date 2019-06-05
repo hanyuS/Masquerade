@@ -155,9 +155,11 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     // todo: 2. user field copy to curr user field
                     User user = dataSnapshot.getValue(User.class);
                     User curr = User.getInstance();
+                    curr.reset_User();
                     curr.setNickname(user.getNickname());
+                    curr.setGender(user.getGender());
 //                    curr.setGender(user.getGender());
-//                    curr.setEmail((user.getEmail()));
+                    curr.setEmail((user.getEmail()));
 //                    curr.setMatch((user.getMatch()));
 //                    curr.setProfileInd((user.getProfileInd()));
 //                    curr.setUser_id((user.getUser_id()));
@@ -244,7 +246,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         User user = dataSnapshot.getValue(User.class);
                                         User curr = User.getInstance();
-                                        curr = user;
+                                        curr.reset_User();
+                                        curr.setNickname(user.getNickname());
+                                        curr.setGender(user.getGender());
+                                        curr.setEmail((user.getEmail()));
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {

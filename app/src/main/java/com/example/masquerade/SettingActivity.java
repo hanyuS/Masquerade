@@ -149,22 +149,25 @@ public class SettingActivity extends AppCompatActivity {
 
 //        Log.w("log info",user.nickname);
 
-//        if(user.gender == "Male") {
-//            group.check(R.id.second);
-//            male.setChecked(true);
-//            Log.w("male","check");
-//        }
-//
-//        else if(user.gender == "Female") {
-//            Log.w("male", "female");
-//            group.check(R.id.first);
-//            female.setChecked(true);
-//        }
-//        else if(user.gender == "Other"){
-//            group.check(R.id.third);
-//            other.setChecked(true);
-//            Log.w("male","other");
-//        }
+        if(user.getGender().equals("Male")) {
+            group.check(R.id.second);
+            male.setChecked(true);
+            Log.w("male","check");
+            is_set_button = true;
+        }
+
+        else if(user.getGender().equals("Female")) {
+            Log.w("male", "female");
+            group.check(R.id.first);
+            female.setChecked(true);
+            is_set_button = true;
+        }
+        else if(user.getGender().equals("Other")){
+            group.check(R.id.third);
+            other.setChecked(true);
+            Log.w("male","other");
+            is_set_button = true;
+        }
     }
 
     @Override

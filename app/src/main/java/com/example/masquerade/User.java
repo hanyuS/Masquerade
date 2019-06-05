@@ -89,6 +89,16 @@ public class User {
 
     public int getUser_age(){return user_age;}
 
-
+    public void reset_User(){
+        nickname = "Nickname";
+        email = "";
+        user_age = 0;
+        user_tag = null;
+        gender = "";
+        Uid = "";
+        imageURL = "";
+        match = "false";
+        profileInd = "";
+    }
 
 }
