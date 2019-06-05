@@ -336,6 +336,36 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d("debug",Userone);
                         Log.d("debug",Usertwo);
                         //to be done
+                        final String[] useroneinfo = new String[3];
+                        final String[] usertwoinfo = new String[3];
+
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(Userone);
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                useroneinfo[1] = dataSnapshot.child("nickname").getValue(String.class);
+                                //useroneinfo[2] = dataSnapshot.child("profileInd").getValue(String.class);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+
+                        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference().child("Users").child(Usertwo);
+                        ref2.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                useroneinfo[1] = dataSnapshot.child("nickname").getValue(String.class);
+                                //useroneinfo[2] = dataSnapshot.child("profileInd").getValue(String.class);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                         database.child("Users").child(Userone).child("match").setValue(Usertwo);
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
@@ -343,6 +373,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(sametag);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("isFriend").setValue(false);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("isFriend").setValue(false);
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("nickname").setValue(useroneinfo[1]);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("nickname").setValue(usertwoinfo[1]);
+                        //database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("profileInd").setValue(useroneinfo[2]);
+                        //database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("profileInd").setValue(usertwoinfo[2]);
                         database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(-2);
                         database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(-2);
                         //     addToContact(Userone, Usertwo);
