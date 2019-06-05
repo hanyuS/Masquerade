@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
     int friendLevel, theirFriendLevel;
     Button addFriend, removeContact;
     List<String> tagsKeys;
+    ImageView profilePic;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         unknownTagsText = findViewById(R.id.unknownTags);
         addFriend = findViewById(R.id.btn_addFriend);
         removeContact = findViewById(R.id.btn_removeContact);
+        profilePic = findViewById(R.id.profile_pic);
 
 
         intent = getIntent();
@@ -118,6 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("test", contactReference.child("nickname").toString());
                 Log.d("test", contactReference.toString());
+                profilePic.setImageResource(getResources().getIdentifier(dataSnapshot.child(uid).child("contactlists").child(contactId).child("avatar").getValue(String.class), "drawable", getPackageName()));
                 friendLevel = Integer.parseInt(dataSnapshot.child(uid).child("friendlists").child(contactId).getValue().toString());
                 theirFriendLevel = Integer.parseInt(dataSnapshot.child(contactId).child("friendlists").child(uid).getValue().toString());
                 if(friendLevel == -3){

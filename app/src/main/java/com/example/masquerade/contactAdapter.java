@@ -87,7 +87,7 @@ public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactH
     @Override
     public void onBindViewHolder(@NonNull contactHolder contactHolder, int i) {
         contactItem currentContact = mContactList.get(i);
-        contactHolder.mImageView.setImageResource(currentContact.getAvatarSource());
+        contactHolder.mImageView.setImageResource(context.getResources().getIdentifier(currentContact.getAvatarSource(), "drawable", context.getPackageName()));
         contactHolder.contactNickname.setText(currentContact.getContactNickname());
         contactHolder.pairedTag.setText(currentContact.getPairedTag());
 

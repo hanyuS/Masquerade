@@ -163,7 +163,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     curr.setProfileInd((user.getProfileInd()));
                     curr.setUser_id((user.getUser_id()));
                     curr.setUser_tag((user.getUser_tag()));
-                    curr.setImageURL((user.getImageURL()));
                     curr.setUser_age((user.getUser_age()));
 
 

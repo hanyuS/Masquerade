@@ -75,13 +75,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("firebase snapshot",dataSnapshot.getKey());
                 list = new ArrayList<contactItem>();
-                list.add(new contactItem(R.drawable.logo_small,"Press '+' TO Make Friends","","",false));
+                list.add(new contactItem("logo_small","Press '+' TO Make Friends","","",false));
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Log.d("some","some");
                     Log.d("the friend name is", dataSnapshot1.getKey());
                     Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
-                    contactItem item = new contactItem(R.drawable.logo_small, "tags",dataSnapshot1.child("tags").getValue(String.class),dataSnapshot1.getKey(),false);
-                    list.add(item);
+                    if(dataSnapshot1.child("avatar").exists() && dataSnapshot1.child("tags").exists()) {
+                        contactItem item = new contactItem(dataSnapshot1.child("avatar").getValue(String.class), "tags", dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), false);
+                        list.add(item);
+                    }
                 }
                 adapter = new contactAdapter(HomeActivity.this,list);
                 recyclerView.setAdapter(adapter);
@@ -337,13 +339,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d("debug",Usertwo);
                         //to be done
                         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        database.child("Users").child(Userone).child("match").setValue(Usertwo);
+                        database.child("Users").child(Usertwo).child("match").setValue(Userone);
                         database.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String user1Name = dataSnapshot.child("Users").child(Userone).child("nickname").getValue(String.class);
                                 String user2Name = dataSnapshot.child("Users").child(Usertwo).child("nickname").getValue(String.class);
+                                String user1Avatar = dataSnapshot.child("Users").child(Userone).child("profileInd").getValue(String.class);
+                                String user2Avatar = dataSnapshot.child("Users").child(Usertwo).child("profileInd").getValue(String.class);
                                 database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("nickname").setValue(user1Name);
                                 database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("nickname").setValue(user2Name);
+                                database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("avatar").setValue(user1Avatar);
+                                database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("avatar").setValue(user2Avatar);
                             }
 
                             @Override
@@ -352,8 +360,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         });
 
-                        database.child("Users").child(Userone).child("match").setValue(Usertwo);
-                        database.child("Users").child(Usertwo).child("match").setValue(Userone);
+
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(sametag);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(sametag);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("isFriend").setValue(false);

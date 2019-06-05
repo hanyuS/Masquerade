@@ -3,6 +3,7 @@ package com.example.masquerade;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     FirebaseUser fuser;
 
-    public MessageAdapter(Context mContext, List<Chat> mChat/*, String imageurl*/){
+    public MessageAdapter(Context mContext, List<Chat> mChat, String imageurl){
         this.mChat = mChat;
         this.mContext = mContext;
         this.imageurl = imageurl;
@@ -51,11 +52,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         holder.show_message.setText(chat.getMessage());
 
-/*        if(imageurl.equals("default")){
+
+        if(imageurl.equals("default_pic")){
             holder.profile_image.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Glide.with(mContext).load(imageurl).into(holder.profile_image);
-        }*/
+        }
+        else {
+            holder.profile_image.setImageResource(mContext.getResources().getIdentifier(imageurl, "drawable", mContext.getPackageName()));
+            //Glide.with(mContext).load(imageurl).into(holder.profile_image);
+        }
 
     }
     @Override

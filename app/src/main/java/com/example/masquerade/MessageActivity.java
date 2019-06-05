@@ -123,13 +123,16 @@ public class MessageActivity extends AppCompatActivity {
                 if(isFriend){
                     username.setText(user.nickname);
                 }
-                else username.setText("Anonymous");
-                /*if (user.getImageURL().equals("default")){
+                else {
+                    username.setText("Anonymous");
+                }
+                if (user.getProfileInd().equals("default_pic")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
-                }*/
-                readMessages(fuser.getUid(), userid/*, user.getImageURL()*/);
+                    profile_image.setImageResource(getResources().getIdentifier(user.getProfileInd(), "drawable", getPackageName()));
+                }
+
+                readMessages(fuser.getUid(), userid, user.getProfileInd());
 
             }
 
@@ -163,7 +166,7 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void readMessages(final String myid, final String userid/*, final String imageurl*/){
+    private void readMessages(final String myid, final String userid, final String imageurl){
         mchat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -178,7 +181,7 @@ public class MessageActivity extends AppCompatActivity {
                         mchat.add(chat);
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivity.this,mchat/*, imageurl*/);
+                    messageAdapter = new MessageAdapter(MessageActivity.this,mchat, imageurl);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }

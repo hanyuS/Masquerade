@@ -1,6 +1,7 @@
 package com.example.masquerade;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -47,7 +48,7 @@ public class SettingActivity extends AppCompatActivity {
     RadioButton female;
     RadioButton other;
 
-    String profileInd;
+    String profileInd = "default_pic";
 
     boolean pick_image = false;
 
@@ -64,18 +65,20 @@ public class SettingActivity extends AppCompatActivity {
         mask2 = findViewById(R.id.imageView14);
         mask3 = findViewById(R.id.imageView15);
         mask4 = findViewById(R.id.imageView16);
-        mask4 = findViewById(R.id.imageView17);
-        mask5 = findViewById(R.id.imageView18);
-        mask6 = findViewById(R.id.imageView19);
-        mask7 = findViewById(R.id.imageView20);
+        //mask4 = findViewById(R.id.imageView17);
+        mask5 = findViewById(R.id.imageView17);
+        mask6 = findViewById(R.id.imageView18);
+        mask7 = findViewById(R.id.imageView19);
 
 
         mask1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 1");
                 user = User.getInstance();
-                user.setProfileInd("1");
+                user.setProfileInd("mask1");
+                profileInd = "mask1";
                 pick_image = true;
+
 
             }
         });
@@ -84,7 +87,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 2");
                 user = User.getInstance();
-                user.setProfileInd("2");
+                user.setProfileInd("mask2");
+                profileInd = "mask2";
                 pick_image = true;
             }
         });
@@ -93,7 +97,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 3");
                 user = User.getInstance();
-                user.setProfileInd("3");
+                user.setProfileInd("mask3");
+                profileInd = "mask3";
                 pick_image = true;
             }
         });
@@ -102,7 +107,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 4");
                 user = User.getInstance();
-                user.setProfileInd("4");
+                user.setProfileInd("mask4");
+                profileInd = "mask4";
                 pick_image = true;
             }
         });
@@ -111,7 +117,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 5");
                 user = User.getInstance();
-                user.setProfileInd("5");
+                user.setProfileInd("mask5");
+                profileInd = "mask5";
                 pick_image = true;
             }
         });
@@ -120,7 +127,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 6");
                 user = User.getInstance();
-                user.setProfileInd("6");
+                user.setProfileInd("mask6");
+                profileInd = "mask6";
                 pick_image = true;
             }
         });
@@ -129,7 +137,8 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.w("good" ,"already choose image 7");
                 user = User.getInstance();
-                user.setProfileInd("7");
+                user.setProfileInd("mask7");
+                profileInd = "mask7";
                 pick_image = true;
             }
         });

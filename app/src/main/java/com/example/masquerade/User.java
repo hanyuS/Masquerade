@@ -14,8 +14,7 @@ public class User {
     public Map<String,Boolean> user_tag;
     private static User instance;
     public String gender;
-    public String Uid;
-    private String imageURL;
+    public String Uid;;
     public String match = "false";
   //  public String ContactLists;
     //todo: contact list & conversation
@@ -45,10 +44,6 @@ public class User {
         this.nickname = nickname;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public void setProfileInd(String profileInd){this.profileInd = profileInd;}
 
     public void setMatch(String match){this.match = match;}
@@ -74,10 +69,6 @@ public class User {
         return nickname;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
     public String getGender() { return gender; }
 
     public String getProfileInd(){return profileInd;}
@@ -97,7 +88,6 @@ public class User {
         user_tag = null;
         gender = "";
         Uid = "";
-        imageURL = "";
         match = "false";
         profileInd = "";
     }

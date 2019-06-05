@@ -56,7 +56,7 @@ public class friendActivity extends AppCompatActivity {
 
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list = new ArrayList<contactItem>();
-                list.add(new contactItem(R.drawable.logo_small,"Check profile page to add Friends","","",true));
+                list.add(new contactItem("logo_small","Check profile page to add Friends","","",true));
                 Log.d("firebase snapshot",dataSnapshot.getKey());
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Log.d("some","some");
@@ -64,7 +64,7 @@ public class friendActivity extends AppCompatActivity {
                     Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
                     Log.d("the pair friend is",dataSnapshot1.child("isFriend").getValue().toString());
                     if( dataSnapshot1.child("isFriend").exists() &&(Boolean)dataSnapshot1.child("isFriend").getValue()) {
-                        contactItem item = new contactItem(R.drawable.logo_small, dataSnapshot1.child("nickname").getValue(String.class), dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), true);
+                        contactItem item = new contactItem(dataSnapshot1.child("avatar").getValue(String.class), dataSnapshot1.child("nickname").getValue(String.class), dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), true);
                         list.add(item);
                     }
                 }
