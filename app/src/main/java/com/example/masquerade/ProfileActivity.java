@@ -29,9 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import android.content.Intent;
@@ -68,7 +66,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    TextView username,gender;
+    TextView username,gender,knownTagsText, unknownTagsText;
     FirebaseUser fuser;
     DatabaseReference contactReference,reference;
     Intent intent;
@@ -76,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
     String uid, contactId;
     int friendLevel, theirFriendLevel;
     Button addFriend, removeContact;
+    List<String> tagsKeys;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +82,32 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profile);
         username = findViewById(R.id.username);
         gender = findViewById(R.id.gender);
+        knownTagsText = findViewById(R.id.knownTags);
+        unknownTagsText = findViewById(R.id.unknownTags);
         addFriend = findViewById(R.id.btn_addFriend);
         removeContact = findViewById(R.id.btn_removeContact);
 
 
         intent = getIntent();
         contactId = intent.getStringExtra("contactid");
+        tagsKeys = new ArrayList<String>();
+        tagsKeys.add("sports");
+        tagsKeys.add("movie");
+        tagsKeys.add("music");
+        tagsKeys.add("video");
+        tagsKeys.add("games");
+        tagsKeys.add("digital technology");
+        tagsKeys.add("fashion");
+        tagsKeys.add("animation");
+        tagsKeys.add("arts");
+        tagsKeys.add("make-up");
+        tagsKeys.add("travel");
+        tagsKeys.add("food");
+        tagsKeys.add("pets");
+        tagsKeys.add("academic");
+
+        Random r = new Random(contactId.hashCode());
+        java.util.Collections.shuffle(tagsKeys, r);
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         uid = fuser.getUid();
         contactReference = FirebaseDatabase.getInstance().getReference("Users").child(contactId);
@@ -126,6 +145,33 @@ public class ProfileActivity extends AppCompatActivity {
                 else {
                     gender.setText("gender: Invisible (This information will be visible if you become friends.)");
                 }
+                int numberOfKnownTags = Math.max(0,(friendLevel - 10)/3);
+                String knownTagsInfo = "";
+                String unknownTagsInfo;
+                if(numberOfKnownTags > 0){
+                    knownTagsInfo = "Known tags: \n";
+                }
+                if(numberOfKnownTags == 14){
+                    unknownTagsInfo = "You can see all tags of this friend!\n";
+                }
+                else{
+                    unknownTagsInfo = "Talk more to see the following tags of your friend: ";
+                }
+                for(int i = 0; i < numberOfKnownTags; i++){
+                    String currentTags = tagsKeys.get(i);
+                    knownTagsInfo = knownTagsInfo + currentTags + ": " +
+                            dataSnapshot.child(contactId).child("tags").child(currentTags).getValue().toString()
+                            + "\n";
+                }
+
+                for(int i = numberOfKnownTags; i < 14; i++){
+                    String currentTags = tagsKeys.get(i);
+                    unknownTagsInfo = unknownTagsInfo + currentTags + ", ";
+                }
+                knownTagsText.setText(knownTagsInfo);
+                unknownTagsText.setText(unknownTagsInfo.substring(0,unknownTagsInfo.length()-2));
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -133,36 +179,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void update() {
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(contactId).child("friendlists");
-//        ref.addChildEventListener(new ChildEventListener(){
-//
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-////                pairedUser = dataSnapshot.child("contactlists").getValue(String.class);
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                if(dataSnapshot.getKey().toString().equals(uid)){
-//                    theirFriendLevel = Integer.parseInt(dataSnapshot.getValue().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//    }
 
     public void makeFriend(View view) {
         if(theirFriendLevel == -2){
