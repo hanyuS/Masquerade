@@ -63,6 +63,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -74,6 +75,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -85,6 +87,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -96,6 +99,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -107,6 +111,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -118,6 +123,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -129,6 +135,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
                 <ImageView
@@ -140,6 +147,7 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
+                    android:clickable="true"
                     app:srcCompat="@drawable/logo" />
 
             </LinearLayout>
