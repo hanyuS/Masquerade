@@ -124,11 +124,19 @@ public class ProfileActivity extends AppCompatActivity {
                     username.setText("No information available, since you two are no longer contacts.");
                     gender.setText("");
                     addFriend.setEnabled(false);
+                    addFriend.setText("You cannot add this contact as friend, since you are no longer friends.");
                     removeContact.setEnabled(false);
+                    knownTagsText.setText("");
+                    unknownTagsText.setText("");
                     return;
                 }
-                if(friendLevel >=-1){
+                if(friendLevel ==-1){
                     addFriend.setEnabled(false);
+                    addFriend.setText("Waiting for your contact to add you as friend");
+                }
+                else if(friendLevel >=0){
+                    addFriend.setEnabled(false);
+                    addFriend.setText("You have become friends!");
                 }
                 if(friendLevel >=0){
                     username.setText("nickname: " + dataSnapshot.child(contactId).child("nickname").getValue().toString());
@@ -145,31 +153,33 @@ public class ProfileActivity extends AppCompatActivity {
                 else {
                     gender.setText("gender: Invisible (This information will be visible if you become friends.)");
                 }
-                int numberOfKnownTags = Math.max(0,(friendLevel - 10)/3);
+                int numberOfKnownTags = Math.min(Math.max(0,(friendLevel - 10)/3),14);
                 String knownTagsInfo = "";
-                String unknownTagsInfo;
+                String unknownTagsInfo = "";
                 if(numberOfKnownTags > 0){
                     knownTagsInfo = "Known tags: \n";
+                    for(int i = 0; i < numberOfKnownTags; i++){
+                        String currentTags = tagsKeys.get(i);
+                        knownTagsInfo = knownTagsInfo + currentTags + ": " +
+                                dataSnapshot.child(contactId).child("tags").child(currentTags).getValue().toString()
+                                + "\n";
+                    }
                 }
-                if(numberOfKnownTags == 14){
+                if(numberOfKnownTags >= 14){
                     unknownTagsInfo = "You can see all tags of this friend!\n";
                 }
-                else{
+                else {
                     unknownTagsInfo = "Talk more to see the following tags of your friend: ";
-                }
-                for(int i = 0; i < numberOfKnownTags; i++){
-                    String currentTags = tagsKeys.get(i);
-                    knownTagsInfo = knownTagsInfo + currentTags + ": " +
-                            dataSnapshot.child(contactId).child("tags").child(currentTags).getValue().toString()
-                            + "\n";
+                    for(int i = numberOfKnownTags; i < 14; i++){
+                        String currentTags = tagsKeys.get(i);
+                        unknownTagsInfo = unknownTagsInfo + currentTags + ", ";
+                    }
+                    unknownTagsInfo = unknownTagsInfo.substring(0,unknownTagsInfo.length()-2);
                 }
 
-                for(int i = numberOfKnownTags; i < 14; i++){
-                    String currentTags = tagsKeys.get(i);
-                    unknownTagsInfo = unknownTagsInfo + currentTags + ", ";
-                }
+
                 knownTagsText.setText(knownTagsInfo);
-                unknownTagsText.setText(unknownTagsInfo.substring(0,unknownTagsInfo.length()-2));
+                unknownTagsText.setText(unknownTagsInfo);
 
 
             }
