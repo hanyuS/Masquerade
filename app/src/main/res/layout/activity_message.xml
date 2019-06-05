@@ -38,8 +38,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:layout_marginEnd="295dp"
-                android:layout_marginRight="295dp" />
+
+                android:layout_marginEnd="150dp"
+                android:layout_marginRight="150dp" />
+
 
         </android.support.v7.widget.Toolbar>
 
