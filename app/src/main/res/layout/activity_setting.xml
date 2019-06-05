@@ -65,7 +65,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask1" />
 
                 <ImageView
                     android:id="@+id/imageView14"
@@ -77,7 +77,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask2" />
 
                 <ImageView
                     android:id="@+id/imageView15"
@@ -89,7 +89,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask3" />
 
                 <ImageView
                     android:id="@+id/imageView16"
@@ -101,7 +101,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask4" />
 
                 <ImageView
                     android:id="@+id/imageView17"
@@ -113,7 +113,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask5" />
 
                 <ImageView
                     android:id="@+id/imageView18"
@@ -125,7 +125,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask6" />
 
                 <ImageView
                     android:id="@+id/imageView19"
@@ -137,7 +137,7 @@
                     android:padding="5dp"
                     android:scaleType="fitStart"
                     android:clickable="true"
-                    app:srcCompat="@drawable/logo" />
+                    app:srcCompat="@drawable/mask7" />
 
                 <ImageView
                     android:id="@+id/imageView20"

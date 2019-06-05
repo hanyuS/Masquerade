@@ -158,14 +158,13 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     curr.reset_User();
                     curr.setNickname(user.getNickname());
                     curr.setGender(user.getGender());
-//                    curr.setGender(user.getGender());
                     curr.setEmail((user.getEmail()));
-//                    curr.setMatch((user.getMatch()));
-//                    curr.setProfileInd((user.getProfileInd()));
-//                    curr.setUser_id((user.getUser_id()));
-//                    curr.setUser_tag((user.getUser_tag()));
-//                    curr.setImageURL((user.getImageURL()));
-//                    curr.setUser_age((user.getUser_age()));
+                    curr.setMatch((user.getMatch()));
+                    curr.setProfileInd((user.getProfileInd()));
+                    curr.setUser_id((user.getUser_id()));
+                    curr.setUser_tag((user.getUser_tag()));
+                    curr.setImageURL((user.getImageURL()));
+                    curr.setUser_age((user.getUser_age()));
 
 
                     Log.d("datachange","changes");
