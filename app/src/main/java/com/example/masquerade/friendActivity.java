@@ -61,10 +61,7 @@ public class friendActivity extends AppCompatActivity {
 
                 Log.d("firebase snapshot",dataSnapshot.getKey());
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    Log.d("some","some");
-                    Log.d("the friend name is", dataSnapshot1.getKey());
-                    Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
-                    Log.d("the pair friend is",dataSnapshot1.child("isFriend").getValue().toString());
+
                     if( dataSnapshot1.child("isFriend").exists() &&(Boolean)dataSnapshot1.child("isFriend").getValue()) {
                         contactItem item = new contactItem(dataSnapshot1.child("avatar").getValue(String.class), dataSnapshot1.child("nickname").getValue(String.class), dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), true);
                         list.add(item);

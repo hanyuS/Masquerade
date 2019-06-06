@@ -63,9 +63,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView = (RecyclerView)findViewById(R.id.contact_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-
         FirebaseUser curUser = FirebaseAuth.getInstance().getCurrentUser();
         String curUID = curUser.getUid();
         Log.d("get value from firebase",curUID);
@@ -346,11 +343,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
                         database.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String user1Name = dataSnapshot.child("Users").child(Userone).child("nickname").getValue(String.class);
-                                String user2Name = dataSnapshot.child("Users").child(Usertwo).child("nickname").getValue(String.class);
-                                String user1Avatar = dataSnapshot.child("Users").child(Userone).child("profileInd").getValue(String.class);
-                                String user2Avatar = dataSnapshot.child("Users").child(Usertwo).child("profileInd").getValue(String.class);
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                String user1Name = dataSnapshot2.child("Users").child(Userone).child("nickname").getValue(String.class);
+                                String user2Name = dataSnapshot2.child("Users").child(Usertwo).child("nickname").getValue(String.class);
+                                String user1Avatar = dataSnapshot2.child("Users").child(Userone).child("profileInd").getValue(String.class);
+                                String user2Avatar = dataSnapshot2.child("Users").child(Usertwo).child("profileInd").getValue(String.class);
                                 database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("nickname").setValue(user1Name);
                                 database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("nickname").setValue(user2Name);
                                 database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("avatar").setValue(user1Avatar);
@@ -362,9 +359,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         });
-
-
-
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(sametag);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(sametag);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("isFriend").setValue(false);

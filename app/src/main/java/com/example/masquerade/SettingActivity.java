@@ -3,6 +3,7 @@ package com.example.masquerade;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -19,8 +20,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SettingActivity extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
@@ -43,6 +47,7 @@ public class SettingActivity extends AppCompatActivity {
     ImageView mask5;
     ImageView mask6;
     ImageView mask7;
+    ImageView display;
 
     RadioButton male;
     RadioButton female;
@@ -69,6 +74,7 @@ public class SettingActivity extends AppCompatActivity {
         mask5 = findViewById(R.id.imageView17);
         mask6 = findViewById(R.id.imageView18);
         mask7 = findViewById(R.id.imageView19);
+        display = findViewById(R.id.display);
 
 
         mask1.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +84,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask1");
                 profileInd = "mask1";
                 pick_image = true;
-
-
+                display.setImageResource(R.drawable.mask1);
             }
         });
 
@@ -90,6 +95,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask2");
                 profileInd = "mask2";
                 pick_image = true;
+                display.setImageResource(R.drawable.mask2);
             }
         });
 
@@ -100,6 +106,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask3");
                 profileInd = "mask3";
                 pick_image = true;
+                display.setImageResource(R.drawable.mask3);
             }
         });
 
@@ -110,6 +117,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask4");
                 profileInd = "mask4";
                 pick_image = true;
+                display.setImageResource(R.drawable.mask4);
             }
         });
 
@@ -120,6 +128,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask5");
                 profileInd = "mask5";
                 pick_image = true;
+                display.setImageResource(R.drawable.mask5);
             }
         });
 
@@ -130,6 +139,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask6");
                 profileInd = "mask6";
                 pick_image = true;
+                display.setImageResource(R.drawable.mask6);
             }
         });
 
@@ -140,6 +150,7 @@ public class SettingActivity extends AppCompatActivity {
                 user.setProfileInd("mask7");
                 profileInd = "mask7";
                 pick_image = true;
+                display.setImageResource(R.drawable.mask7);
             }
         });
 
@@ -236,6 +247,24 @@ public class SettingActivity extends AppCompatActivity {
         mDatabase.child("Users").child(currentUser.getUid()).child("nickname").setValue(nick_name);
         mDatabase.child("Users").child(currentUser.getUid()).child("gender").setValue(gender);
         mDatabase.child("Users").child(currentUser.getUid()).child("profileInd").setValue(profileInd);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("contactlists");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Log.d("change friend pic",dataSnapshot1.getKey());
+                        String friendId = dataSnapshot1.getKey();
+                        mDatabase.child("Users").child(friendId).child("contactlists").child(currentUser.getUid()).child("avatar").setValue(profileInd);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         startActivity(new Intent(SettingActivity.this, selectTag.class));
         finish();
