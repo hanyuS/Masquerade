@@ -81,22 +81,28 @@ public class ProfileActivity extends AppCompatActivity {
 
     ImageView profilePic;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = FirebaseDatabase.getInstance().getReference();
         setContentView(R.layout.profile);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                finish();
+            }
+        });
+
         username = findViewById(R.id.username);
         gender = findViewById(R.id.gender);
         knownTagsText = findViewById(R.id.knownTags);
         unknownTagsText = findViewById(R.id.unknownTags);
         addFriend = findViewById(R.id.btn_addFriend);
         removeContact = findViewById(R.id.btn_removeContact);
-
         profilePic = findViewById(R.id.profile_pic);
-
-
-
         intent = getIntent();
         contactId = intent.getStringExtra("contactid");
         tagsKeys = new ArrayList<String>();
@@ -128,7 +134,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("test", contactReference.child("nickname").toString());
                 Log.d("test", contactReference.toString());
 
-                profilePic.setImageResource(getResources().getIdentifier(dataSnapshot.child(uid).child("contactlists").child(contactId).child("avatar").getValue(String.class), "drawable", getPackageName()));
+                profilePic.setImageResource(getResources().getIdentifier(dataSnapshot.child(contactId).child("profileInd").getValue(String.class), "drawable", getPackageName()));
 
                 friendLevel = Integer.parseInt(dataSnapshot.child(uid).child("friendlists").child(contactId).getValue().toString());
                 theirFriendLevel = Integer.parseInt(dataSnapshot.child(contactId).child("friendlists").child(uid).getValue().toString());
@@ -188,12 +194,8 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                     unknownTagsInfo = unknownTagsInfo.substring(0,unknownTagsInfo.length()-2);
                 }
-
-
                 knownTagsText.setText(knownTagsInfo);
                 unknownTagsText.setText(unknownTagsInfo);
-
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

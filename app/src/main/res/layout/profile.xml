@@ -8,6 +8,33 @@
     android:orientation="vertical"
     tools:context=".ProfileActivity">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/logo_small"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorAccent"
+                    android:fontFamily="@font/candara"
+                    android:text="@string/app_name_cap"
+                    android:textColor="@color/colorAccent" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -16,6 +43,13 @@
             android:textStyle="bold"
             android:text="User Profile"
             />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp"
+            android:id="@+id/profile_pic"/>
+
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
@@ -24,11 +58,6 @@
             android:textStyle="bold"
             />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="2dp"
-            android:id="@+id/profile_pic"/>
 
         <TextView
             android:id="@+id/gender"
