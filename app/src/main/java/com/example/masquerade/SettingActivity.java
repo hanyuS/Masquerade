@@ -261,6 +261,7 @@ public class SettingActivity extends AppCompatActivity {
                         Log.d("change friend pic",dataSnapshot1.getKey());
                         String friendId = dataSnapshot1.getKey();
                         mDatabase.child("Users").child(friendId).child("contactlists").child(currentUser.getUid()).child("avatar").setValue(profileInd);
+                        mDatabase.child("Users").child(friendId).child("contactlists").child(currentUser.getUid()).child("nickname").setValue(nick_name);
                     }
                 }
             }
