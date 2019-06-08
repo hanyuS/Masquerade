@@ -245,7 +245,12 @@ public class SettingActivity extends AppCompatActivity {
         }
         if(!validate_nickname()){ return ;}
         mDatabase.child("Users").child(currentUser.getUid()).child("nickname").setValue(nick_name);
-        mDatabase.child("Users").child(currentUser.getUid()).child("gender").setValue(gender);
+        if(gender != null) {
+            mDatabase.child("Users").child(currentUser.getUid()).child("gender").setValue(gender);
+        }
+        else{
+            Log.d("See gender", "empty");
+        }
         mDatabase.child("Users").child(currentUser.getUid()).child("profileInd").setValue(profileInd);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser.getUid()).child("contactlists");
         ref.addValueEventListener(new ValueEventListener() {
@@ -256,6 +261,7 @@ public class SettingActivity extends AppCompatActivity {
                         Log.d("change friend pic",dataSnapshot1.getKey());
                         String friendId = dataSnapshot1.getKey();
                         mDatabase.child("Users").child(friendId).child("contactlists").child(currentUser.getUid()).child("avatar").setValue(profileInd);
+                        mDatabase.child("Users").child(friendId).child("contactlists").child(currentUser.getUid()).child("nickname").setValue(nick_name);
                     }
                 }
             }
