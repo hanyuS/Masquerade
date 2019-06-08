@@ -36,12 +36,35 @@
         android:layout_height="match_parent"
         android:padding="30dp">
 
+        <TextView
+            android:id="@+id/pic"
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:text = "Profile Avatar"
+            android:textSize="15sp"
+            android:padding="5dp"
+            android:gravity="center_vertical"
+            />
+
+        <ImageView
+            android:id="@+id/display"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:layout_toEndOf="@+id/pic"
+            android:padding="5dp"
+            app:srcCompat="@drawable/logo" />
+
         <HorizontalScrollView
             android:id="@+id/masks"
+            android:padding="15dp"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@id/display"
             android:clickable="true"
             android:fillViewport="true"
             android:focusable="true"
@@ -63,7 +86,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask1" />
 
                 <ImageView
                     android:id="@+id/imageView14"
@@ -74,7 +99,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask2" />
 
                 <ImageView
                     android:id="@+id/imageView15"
@@ -85,7 +112,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask3" />
 
                 <ImageView
                     android:id="@+id/imageView16"
@@ -96,7 +125,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask4" />
 
                 <ImageView
                     android:id="@+id/imageView17"
@@ -107,7 +138,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask5" />
 
                 <ImageView
                     android:id="@+id/imageView18"
@@ -118,7 +151,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask6" />
 
                 <ImageView
                     android:id="@+id/imageView19"
@@ -129,18 +164,9 @@
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
-
-                <ImageView
-                    android:id="@+id/imageView20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:cropToPadding="false"
-                    android:padding="5dp"
-                    android:scaleType="fitStart"
-                    app:srcCompat="@drawable/logo" />
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:srcCompat="@drawable/mask7" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -151,7 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/masks"
-            android:layout_marginTop="98dp"
+            android:layout_marginTop="66dp"
             android:hint="@string/setting_nickname"
             android:textColorHint="@color/colorWhite">
 
@@ -170,7 +196,7 @@
             android:layout_width="wrap_content"
             android:layout_height="53dp"
             android:layout_below="@+id/input"
-            android:layout_marginTop="73dp"
+            android:layout_marginTop="58dp"
             android:orientation="horizontal"
             android:layout_centerHorizontal="true">
 

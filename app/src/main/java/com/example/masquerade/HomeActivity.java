@@ -10,9 +10,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,50 +41,59 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     int code = 2;
     Boolean Mask = false;
     String pairedUser="";
+    Boolean pairing = false;
+    DrawerLayout drawer;
+    RecyclerView recyclerView;
+    ArrayList<contactItem> list;
+    contactAdapter adapter;
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         waitPair();
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         //ListView navigation = findViewById(R.id.nav_list);
         findViewById(R.id.signout).setOnClickListener(this);
         findViewById(R.id.setting_btn).setOnClickListener(this);
+        findViewById(R.id.btn_friendlist).setOnClickListener(this);
 
-        //        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String curUID = user.getUid();
-//        database.child("Users").child(curUID).child("contactlists").addValueEventListener(
-//                new ValueEventListener(){
-//
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot contact: dataSnapshot.getChildren()) {
-//                            //contacts field 在方法外所以得想办法传出去值
-//                            //或者不需要每次contactlist更新的话可以尝试建一个dataSnapshot然后直接for each读取
-//                            //另外需要在contact list里添加两个field
-//                            //比如User1的contactlist里有user2 这个user2里需要两个field
-//                            //一个是pairtag，就是他们共享的tag
-//                            //另一个是value，是他们之间的那个数字
-//                            //paired user我改过了line248-250；287；295；308；315-320
-//                            ArrayList<contactItem> contacts = new ArrayList<>();
-//                            contacts.add(new contactItem(R.drawable.logo_small, contact.getValue().toString(), contact.child("pairtag").getValue().toString()));
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//
-//        mRecycleView = findViewById(R.id.contact_list);
-//        mRecycleView.setHasFixedSize(true);
-//        mLayoutManaer = new LinearLayoutManager(this);
-//        mAdapter  = new contactAdapter(contacts);
-//        mRecycleView.setLayoutManager(mLayoutManaer);
-//        mRecycleView.setAdapter(mAdapter);
+        recyclerView = (RecyclerView)findViewById(R.id.contact_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseUser curUser = FirebaseAuth.getInstance().getCurrentUser();
+        String curUID = curUser.getUid();
+        Log.d("get value from firebase",curUID);
+        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(curUID).child("contactlists");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("firebase snapshot",dataSnapshot.getKey());
+                list = new ArrayList<contactItem>();
+                list.add(new contactItem("logo_small","Press '+' TO Make Friends","","",false));
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    Log.d("some","some");
+                    Log.d("the friend name is", dataSnapshot1.getKey());
+                    Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
+                    if(dataSnapshot1.child("avatar").exists() && dataSnapshot1.child("tags").exists()) {
+                        contactItem item = new contactItem(dataSnapshot1.child("avatar").getValue(String.class), "tags", dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), false);
+                        list.add(item);
+                    }
+                }
+                adapter = new contactAdapter(HomeActivity.this,list);
+                recyclerView.setAdapter(adapter);
+                Log.d("finish read firebase","finish");
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(HomeActivity.this,"Somethins is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         setSupportActionBar(toolbar);
@@ -94,7 +107,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
+                super.
+                        onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
             }
         };
@@ -107,6 +121,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (!Mask) {
                     fab.setImageResource(R.drawable.rotate);
                     pair();
+                    pairing = true;
                 }
                 else {
                     fab.setImageResource(R.drawable.ic_add_black_24dp);
@@ -116,8 +131,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     pairedUser = "";
                     startActivity(intent);
                     Mask = false;
+                    pairing = false;
                 }
-
             }
         });
 
@@ -125,13 +140,31 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
     }
+
+
     @Override
     public void onClick(View v){
         if(v.getId()==R.id.signout){
+            Log.d("whatis wroing", "ABCD");
             signout();
         }
         if(v.getId()==R.id.setting_btn){
+            Log.d("toastTest", "ABCD");
+            if(pairing)
+            {
+                drawer.closeDrawers();
+                Log.d("toastTest", "ABCD");
+                Toast.makeText(HomeActivity.this, "You cannot change your settings while searching for contacts", Toast.LENGTH_LONG).show();
+                return;
+            }
             startActivity(new Intent(HomeActivity.this,SettingActivity.class));
+        }
+        if(v.getId()==R.id.btn_friendlist){
+            Log.d("click","friednlist");
+
+            startActivity(new Intent(HomeActivity.this,friendActivity.class));
+            drawer.closeDrawers();
+
         }
     }
     public void signout(){
@@ -300,17 +333,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         database.child("Users").child(uid).child("match").setValue("true");
                     }
 
-                    private void PairUsers(String Userone, String Usertwo, String sametag){
+                    private void PairUsers(final String Userone, final String Usertwo, String sametag){
                         Log.d("debug",Userone);
                         Log.d("debug",Usertwo);
                         //to be done
-                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
                         database.child("Users").child(Userone).child("match").setValue(Usertwo);
                         database.child("Users").child(Usertwo).child("match").setValue(Userone);
-                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).setValue(sametag);
-                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).setValue(sametag);
-                        database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(0);
-                        database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(0);
+                        database.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                String user1Name = dataSnapshot2.child("Users").child(Userone).child("nickname").getValue(String.class);
+                                String user2Name = dataSnapshot2.child("Users").child(Usertwo).child("nickname").getValue(String.class);
+                                String user1Avatar = dataSnapshot2.child("Users").child(Userone).child("profileInd").getValue(String.class);
+                                String user2Avatar = dataSnapshot2.child("Users").child(Usertwo).child("profileInd").getValue(String.class);
+                                database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("nickname").setValue(user1Name);
+                                database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("nickname").setValue(user2Name);
+                                database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("avatar").setValue(user1Avatar);
+                                database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("avatar").setValue(user2Avatar);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(sametag);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(sametag);
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("isFriend").setValue(false);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("isFriend").setValue(false);
+                        database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(-2);
+                        database.child("Users").child(Usertwo).child("friendlists").child(Userone).setValue(-2);
                         //     addToContact(Userone, Usertwo);
                     }
                 });
