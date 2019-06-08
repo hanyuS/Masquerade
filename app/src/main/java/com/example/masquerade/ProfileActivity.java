@@ -157,19 +157,19 @@ public class ProfileActivity extends AppCompatActivity {
                     addFriend.setText("You have become friends!");
                 }
                 if(friendLevel >=0){
-                    username.setText("nickname: " + dataSnapshot.child(contactId).child("nickname").getValue().toString());
+                    username.setText(dataSnapshot.child(contactId).child("nickname").getValue().toString());
                 }
                 else{
-                    username.setText("nickname: Anonymous(This information will be visible if you become friends.)");
+                    username.setText("Nickname: Anonymous(This information will be visible if you become friends.)");
                 }
                 if(friendLevel >=10){
-                    gender.setText("gender: " + dataSnapshot.child(contactId).child("gender").getValue().toString());
+                    gender.setText(dataSnapshot.child(contactId).child("gender").getValue().toString());
                 }
                 else if(friendLevel >=0){
-                    gender.setText("gender: Invisible (This information will be visible if you talk more)");
+                    gender.setText("Gender: Invisible (This information will be visible if you talk more)");
                 }
                 else {
-                    gender.setText("gender: Invisible (This information will be visible if you become friends.)");
+                    gender.setText("Gender: Invisible (This information will be visible if you become friends.)");
                 }
                 int numberOfKnownTags = Math.min(Math.max(0,(friendLevel - 10)/3),14);
                 String knownTagsInfo = "";
