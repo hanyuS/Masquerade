@@ -12,15 +12,16 @@
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
+        android:id="@+id/show_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/profile_image"
         android:layout_marginLeft="5dp"
-        android:text="hello"
-        android:id="@+id/show_message"
-        android:textSize="20sp"
-        android:padding="8dp"
+        android:layout_toRightOf="@id/profile_image"
         android:background="@drawable/background_left"
-        android:textColor="#000"/>
+        android:fontFamily="sans-serif"
+        android:padding="8dp"
+        android:text="hello"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp" />
 
 </RelativeLayout>
