@@ -29,13 +29,6 @@
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< Updated upstream
-                android:id="@+id/username"
-                android:layout_marginLeft="25dp"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:layout_marginStart="25dp"/>
-=======
                 android:layout_marginStart="25dp"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
@@ -51,7 +44,6 @@
                 android:src="@drawable/person" />
 
 
->>>>>>> Stashed changes
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
