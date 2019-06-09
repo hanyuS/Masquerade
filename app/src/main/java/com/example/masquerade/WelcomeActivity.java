@@ -245,9 +245,15 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                         User user = dataSnapshot.getValue(User.class);
                                         User curr = User.getInstance();
                                         curr.reset_User();
-                                        curr.setNickname(user.getNickname());
-                                        curr.setGender(user.getGender());
-                                        curr.setEmail((user.getEmail()));
+                                        if(user.getNickname()!=null){
+                                            curr.setNickname(user.getNickname());
+                                        }
+                                        if(user.getGender() != null) {
+                                            curr.setGender(user.getGender());
+                                        }
+                                        if(user.getEmail() != null){
+                                            curr.setEmail((user.getEmail()));
+                                        }
                                     }
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
