@@ -75,9 +75,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 list = new ArrayList<contactItem>();
                 //list.add(new contactItem("logo_small","Press '+' TO Make Friends","","",false));
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    Log.d("some","some");
-                    Log.d("the friend name is", dataSnapshot1.getKey());
-                    Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
                     if(dataSnapshot1.child("avatar").exists() && dataSnapshot1.child("tags").exists() && dataSnapshot1.child("tags").getValue().toString().charAt(0) != ' ') {
 
                         contactItem item = new contactItem(dataSnapshot1.child("avatar").getValue(String.class), "Common Tags:", dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), false);
