@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.support.v7.widget.AppCompatImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,17 +27,17 @@ public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactH
         public ImageView mImageView;
         public TextView contactNickname;
         public TextView pairedTag;
-        public Button chat;
-        public Button checkProfile;
+        public AppCompatImageButton chat;
+        public AppCompatImageButton checkProfile;
 
 
         public contactHolder(@NonNull View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.avatar);
-            contactNickname = (TextView) itemView.findViewById(R.id.contact_name);
-            pairedTag = (TextView) itemView.findViewById(R.id.contact_tag);
-            chat = (Button)itemView.findViewById(R.id.start_chat);
-            checkProfile = (Button)itemView.findViewById(R.id.check_profile);
+            mImageView = itemView.findViewById(R.id.avatar);
+            contactNickname = itemView.findViewById(R.id.contact_name);
+            pairedTag = itemView.findViewById(R.id.contact_tag);
+            chat = itemView.findViewById(R.id.start_chat);
+            checkProfile = itemView.findViewById(R.id.check_profile);
         }
 
         public void onClick(final String id) {

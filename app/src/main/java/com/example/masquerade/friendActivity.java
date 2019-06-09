@@ -57,7 +57,7 @@ public class friendActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list = new ArrayList<contactItem>();
 
-                list.add(new contactItem("logo_small","Check profile page to add Friends","","",true));
+                //list.add(new contactItem("logo_small","Check profile page to add Friends","","",true));
 
                 Log.d("firebase snapshot",dataSnapshot.getKey());
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){

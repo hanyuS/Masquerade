@@ -18,10 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp"
+            android:elevation="12dp"
             android:gravity="center_horizontal|center_vertical"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
+            android:theme="?attr/actionBarTheme"
+            app:titleMargin="4dp">
 
             <TextView
                 android:id="@+id/textView"
@@ -46,11 +47,25 @@
         </android.support.v7.widget.Toolbar>
 
 
+        <TextView
+            android:id="@+id/notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:background="@drawable/notification"
+            android:elevation="6dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Click the + button to make friends!"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
+            android:layout_below="@id/notification"
             android:padding="10dp"
             android:scrollbars="vertical">
 

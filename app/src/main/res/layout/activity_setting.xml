@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,10 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
+        android:elevation="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@id/relative"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -32,43 +36,60 @@
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
+        android:id="@+id/relative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="30dp">
+        android:layout_height="0dp"
+        android:padding="30dp"
+        app:layout_constraintBottom_toTopOf="@id/setting_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
-            android:id="@+id/pic"
-            android:layout_width="140dp"
-            android:layout_height="120dp"
-            android:text = "Profile Avatar"
-            android:textSize="15sp"
-            android:padding="5dp"
-            android:gravity="center_vertical"
-            />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/ava_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/display"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            android:layout_toEndOf="@+id/pic"
-            android:padding="5dp"
-            app:srcCompat="@drawable/logo" />
+            <TextView
+                android:id="@+id/pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Profile Avatar"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/display"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/display"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/pic"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
+        </android.support.constraint.ConstraintLayout>
 
         <HorizontalScrollView
             android:id="@+id/masks"
-            android:padding="15dp"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
+            android:layout_below="@id/ava_display"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="false"
             android:layout_alignParentBottom="false"
-            android:layout_below="@id/display"
             android:clickable="true"
             android:fillViewport="true"
             android:focusable="true"
             android:foregroundGravity="center"
+            android:padding="15dp"
             android:scrollbars="horizontal">
 
             <LinearLayout
@@ -83,11 +104,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask1" />
 
                 <ImageView
@@ -96,11 +117,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask2" />
 
                 <ImageView
@@ -109,11 +130,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask3" />
 
                 <ImageView
@@ -122,11 +143,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask4" />
 
                 <ImageView
@@ -135,11 +156,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask5" />
 
                 <ImageView
@@ -148,11 +169,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask6" />
 
                 <ImageView
@@ -161,11 +182,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="fitStart"
-                    android:clickable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     app:srcCompat="@drawable/mask7" />
 
             </LinearLayout>
@@ -179,7 +200,10 @@
             android:layout_below="@+id/masks"
             android:layout_marginTop="66dp"
             android:hint="@string/setting_nickname"
-            android:textColorHint="@color/colorWhite">
+            android:textColorHint="@color/colorWhite"
+            app:counterEnabled="true"
+            app:counterMaxLength="14"
+            app:errorEnabled="false">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/editText"
@@ -187,7 +211,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:maxLength="14" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -196,9 +221,9 @@
             android:layout_width="wrap_content"
             android:layout_height="53dp"
             android:layout_below="@+id/input"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="58dp"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/second"
@@ -230,15 +255,20 @@
                 android:text="@string/third_label" />
 
         </RadioGroup>
-        <Button
-            android:id="@+id/setting_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="confirm"
-            android:onClick="confirmInput"/>
-
 
 
     </RelativeLayout>
-</LinearLayout>
+
+    <Button
+        android:id="@+id/setting_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:elevation="8dp"
+        android:onClick="confirmInput"
+        android:text="confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/relative" />
+</android.support.constraint.ConstraintLayout>

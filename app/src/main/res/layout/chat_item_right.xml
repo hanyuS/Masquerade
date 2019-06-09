@@ -25,10 +25,11 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/background_right"
+            android:fontFamily="sans-serif"
             android:padding="8dp"
             android:text="hello"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
