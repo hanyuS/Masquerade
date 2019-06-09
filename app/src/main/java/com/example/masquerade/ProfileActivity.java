@@ -69,7 +69,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-    TextView username,gender,knownTagsText, unknownTagsText;
+    TextView username,gender, knownTagsText, guide;
     FirebaseUser fuser;
     DatabaseReference contactReference,reference;
     Intent intent;
@@ -98,8 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         gender = findViewById(R.id.gender);
+        guide = findViewById(R.id.notification4);
         knownTagsText = findViewById(R.id.knownTags);
-        unknownTagsText = findViewById(R.id.unknownTags);
         addFriend = findViewById(R.id.btn_addFriend);
         removeContact = findViewById(R.id.btn_removeContact);
         profilePic = findViewById(R.id.profile_pic);
@@ -139,13 +139,14 @@ public class ProfileActivity extends AppCompatActivity {
                 friendLevel = Integer.parseInt(dataSnapshot.child(uid).child("friendlists").child(contactId).getValue().toString());
                 theirFriendLevel = Integer.parseInt(dataSnapshot.child(contactId).child("friendlists").child(uid).getValue().toString());
                 if(friendLevel == -3){
-                    username.setText("No information available, since you two are no longer contacts.");
-                    gender.setText("");
+                    username.setText("Anonymous");
+                    gender.setText("Gender: unknown");
                     addFriend.setEnabled(false);
-                    addFriend.setText("You cannot add this contact as friend, since you are no longer friends.");
+                    addFriend.setText("You cannot add this contact as friend.");
                     removeContact.setEnabled(false);
+                    guide.setText("You two are no longer contacts.");
                     knownTagsText.setText("");
-                    unknownTagsText.setText("");
+                   // unknownTagsText.setText("");
                     return;
                 }
                 if(friendLevel ==-1){
@@ -160,42 +161,59 @@ public class ProfileActivity extends AppCompatActivity {
                     username.setText(dataSnapshot.child(contactId).child("nickname").getValue().toString());
                 }
                 else{
-                    username.setText("Nickname: Anonymous(This information will be visible if you become friends.)");
+                    username.setText("Anonymous");
                 }
-                if(friendLevel >=10){
+                if(friendLevel >=10) {
                     gender.setText(dataSnapshot.child(contactId).child("gender").getValue().toString());
                 }
-                else if(friendLevel >=0){
-                    gender.setText("Gender: Invisible (This information will be visible if you talk more)");
-                }
                 else {
-                    gender.setText("Gender: Invisible (This information will be visible if you become friends.)");
+                    gender.setText("Gender: unknown");
                 }
+                if(friendLevel < 0){
+                    guide.setText("Add friends to see this contact's nickname!");
+                    knownTagsText.setText("");
+                   // unknownTagsText.setText("");
+                    return;
+                }
+                else if(friendLevel < 10){
+                    guide.setText("Talk more to see this friend's gender!");
+                    knownTagsText.setText("");
+                   // unknownTagsText.setText("");
+                    return;
+                }
+
+
                 int numberOfKnownTags = Math.min(Math.max(0,(friendLevel - 10)/3),14);
                 String knownTagsInfo = "";
                 String unknownTagsInfo = "";
-                if(numberOfKnownTags > 0){
-                    knownTagsInfo = "Known tags: \n";
-                    for(int i = 0; i < numberOfKnownTags; i++){
-                        String currentTags = tagsKeys.get(i);
-                        knownTagsInfo = knownTagsInfo + currentTags + ": " +
-                                dataSnapshot.child(contactId).child("tags").child(currentTags).getValue().toString()
-                                + "\n";
-                    }
+                for(int i = 0; i < numberOfKnownTags; i++){
+                    String currentTags = tagsKeys.get(i);
+                    currentTags = currentTags.substring(0,1).toUpperCase() + currentTags.substring(1);
+                    knownTagsInfo = knownTagsInfo + currentTags + ": \t ";
+                        if(dataSnapshot.child(contactId).child("tags").child(tagsKeys.get(i)).getValue().toString().equals("true") ){
+                            knownTagsInfo = knownTagsInfo + "Yes\n";
+                        }
+                        else{
+                            knownTagsInfo = knownTagsInfo + "No\n";
+                        }
                 }
+
                 if(numberOfKnownTags >= 14){
-                    unknownTagsInfo = "You can see all tags of this friend!\n";
+                    guide.setText("You can see all information of this friend!");
+                    unknownTagsInfo = "";
                 }
                 else {
-                    unknownTagsInfo = "Talk more to see the following tags of your friend: ";
+                    guide.setText("Talk more to see more tags of this user.");
+                    unknownTagsInfo = "";
                     for(int i = numberOfKnownTags; i < 14; i++){
                         String currentTags = tagsKeys.get(i);
-                        unknownTagsInfo = unknownTagsInfo + currentTags + ", ";
+                        currentTags = currentTags.substring(0,1).toUpperCase() + currentTags.substring(1);
+                        knownTagsInfo = knownTagsInfo + currentTags + ": \t ?\n";
                     }
-                    unknownTagsInfo = unknownTagsInfo.substring(0,unknownTagsInfo.length()-2);
                 }
+                knownTagsInfo = knownTagsInfo.substring(0, knownTagsInfo.length() - 1);
                 knownTagsText.setText(knownTagsInfo);
-                unknownTagsText.setText(unknownTagsInfo);
+                //unknownTagsText.setText(unknownTagsInfo);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
