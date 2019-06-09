@@ -118,6 +118,14 @@ public class MessageActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String tagString = dataSnapshot.child("contactlists").child(fuser.getUid()).child("tags").getValue().toString();
+                Log.d("listtest", tagString);
+                if(tagString.charAt(0) == ' '){
+                    myReference.child("contactlists").child(userid).child("tags").setValue(tagString.substring(1));
+                }
+                else{
+                    myReference.child("contactlists").child(userid).child("tags").setValue(tagString);
+                }
                 Boolean isFriend = dataSnapshot.child("contactlists").child(fuser.getUid()).child("isFriend").getValue(Boolean.class);
                 User user = dataSnapshot.getValue(User.class);
                 if(isFriend){

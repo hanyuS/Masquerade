@@ -78,7 +78,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Log.d("some","some");
                     Log.d("the friend name is", dataSnapshot1.getKey());
                     Log.d("the pair tag is", dataSnapshot1.child("tags").getValue(String.class));
-                    if(dataSnapshot1.child("avatar").exists() && dataSnapshot1.child("tags").exists()) {
+                    if(dataSnapshot1.child("avatar").exists() && dataSnapshot1.child("tags").exists() && dataSnapshot1.child("tags").getValue().toString().charAt(0) != ' ') {
+
                         contactItem item = new contactItem(dataSnapshot1.child("avatar").getValue(String.class), "Common Tags:", dataSnapshot1.child("tags").getValue(String.class), dataSnapshot1.getKey(), false);
                         list.add(item);
                     }
@@ -149,11 +150,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             signout();
         }
         if(v.getId()==R.id.setting_btn){
-            Log.d("toastTest", "ABCD");
             if(pairing)
             {
                 drawer.closeDrawers();
-                Log.d("toastTest", "ABCD");
                 Toast.makeText(HomeActivity.this, "You cannot change your settings while searching for contacts", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -359,8 +358,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         });
-                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(sametag);
-                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(sametag);
+                        database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("tags").setValue(" " + sametag);
+                        database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("tags").setValue(" " + sametag);
                         database.child("Users").child(Userone).child("contactlists").child(Usertwo).child("isFriend").setValue(false);
                         database.child("Users").child(Usertwo).child("contactlists").child(Userone).child("isFriend").setValue(false);
                         database.child("Users").child(Userone).child("friendlists").child(Usertwo).setValue(-2);
