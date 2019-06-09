@@ -45,7 +45,7 @@ public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactH
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(context,id+"button click",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,id+"button click",Toast.LENGTH_SHORT).show();
 
 
                         Intent intent = new Intent(context , MessageActivity.class);
@@ -58,7 +58,7 @@ public class contactAdapter extends RecyclerView.Adapter<contactAdapter.contactH
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(context,id+"button click",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,id+"button click",Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(context,ProfileActivity.class);
                         intent.putExtra("contactid",id);
