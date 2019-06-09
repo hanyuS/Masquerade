@@ -150,7 +150,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 if(friendLevel ==-1){
                     addFriend.setEnabled(false);
-                    addFriend.setText("Waiting for your contact to add you as friend");
+                    addFriend.setText("Waiting for response :)");
                 }
                 else if(friendLevel >=0){
                     addFriend.setEnabled(false);
