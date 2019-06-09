@@ -165,6 +165,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void signout(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid()).child("match").setValue("false");
         mAuth.signOut();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("1030427491069-3hvkhfksob78t4pjpua9pqhjekk1clef.apps.googleusercontent.com")
