@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:fontFamily="sans-serif-light"
         android:gravity="center_vertical"
+        android:textColor="@color/colorWhite"
         android:textSize="16sp" />
 
     <ImageView
